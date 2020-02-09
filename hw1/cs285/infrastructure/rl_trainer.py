@@ -53,6 +53,9 @@ class RL_Trainer(object):
         self.params['agent_params']['ac_dim'] = ac_dim
         self.params['agent_params']['ob_dim'] = ob_dim
 
+        print('\ndiscrete: {0}'.format(discrete))
+        print('\nob_dim: {0}'.format(ob_dim))
+        print('\nac_dim: {0}'.format(ac_dim))
         # simulation timestep, will be used for video saving
         if 'model' in dir(self.env):
             self.fps = 1/self.env.model.opt.timestep
@@ -190,7 +193,7 @@ class RL_Trainer(object):
             # HINT: use the agent's train function
             # HINT: print or plot the loss for debugging!
             self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
-            
+
     def do_relabel_with_expert(self, expert_policy, paths):
         print("\nRelabelling collected observations with labels from an expert policy...")
 

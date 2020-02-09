@@ -3,3 +3,4 @@ cs285.egg-info/
 __pycache__/
 data/
 CS285_Fa19_Deep_Reinforcement_Learning/
+.gitignore
