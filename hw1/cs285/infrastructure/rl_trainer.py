@@ -53,6 +53,7 @@ class RL_Trainer(object):
         self.params['agent_params']['ac_dim'] = ac_dim
         self.params['agent_params']['ob_dim'] = ob_dim
 
+        print('\n ep_len: {0}'.format(self.params['ep_len']))
         print('\ndiscrete: {0}'.format(discrete))
         print('\nob_dim: {0}'.format(ob_dim))
         print('\nac_dim: {0}'.format(ac_dim))
@@ -167,7 +168,7 @@ class RL_Trainer(object):
         # HINT1: use sample_trajectories from utils
         # HINT2: you want each of these collected rollouts to be of length self.params['ep_len']
         print("\nCollecting data to be used for training...")
-        paths, envsteps_this_batch = sample_trajectories(self.env, collect_policy, batch_size, self.params['ep_len'])#, render=True)
+        paths, envsteps_this_batch = sample_trajectories(self.env, collect_policy, batch_size, self.params['ep_len'], render=True)
 
         # collect more rollouts with the same policy, to be saved as videos in tensorboard
         # note: here, we collect MAX_NVIDEO rollouts, each of length MAX_VIDEO_LEN
@@ -175,7 +176,7 @@ class RL_Trainer(object):
         if self.log_video:
             print('\nCollecting train rollouts to be used for saving videos...')
             ## TODO look in utils and implement sample_n_trajectories
-            train_video_paths = sample_n_trajectories(self.env, collect_policy, self.params['video_log_freq'], self.params['ep_len'], True)
+            train_video_paths = sample_n_trajectories(self.env, collect_policy, MAX_NVIDEO, MAX_VIDEO_LEN, True)
 
         return paths, envsteps_this_batch, train_video_paths
 
@@ -212,6 +213,7 @@ class RL_Trainer(object):
         print("\nCollecting data for eval...")
         eval_paths, eval_envsteps_this_batch = sample_trajectories(self.env, eval_policy, self.params['eval_batch_size'], self.params['ep_len'])
 
+        print('\n log_video: {0}'.format(self.log_video))
         # save eval rollouts as videos in tensorboard event file
         if self.log_video and train_video_paths != None:
             print('\nCollecting video rollouts eval')

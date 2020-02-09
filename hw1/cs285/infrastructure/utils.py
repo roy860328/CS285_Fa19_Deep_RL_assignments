@@ -39,7 +39,9 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
         steps += 1
         next_obs.append(ob)
         rewards.append(rew)
-
+        # print('\n obs: {0}'.format(obs))
+        # print('\n acs: {0}'.format(path))
+        # print('\n rewards: {0}'.format(path))
         # TODO end the rollout if the rollout ended 
         # HINT: rollout can end due to done, or due to max_path_length
         rollout_done = (steps==max_path_length) or done# HINT: this is either 0 or 1
@@ -61,9 +63,10 @@ def sample_trajectories(env, policy, min_timesteps_per_batch, max_path_length, r
     timesteps_this_batch = 0
     paths = []
     while timesteps_this_batch < min_timesteps_per_batch:
-        path = sample_trajectories(env, policy, max_path_length, render)
+        path = sample_trajectory(env, policy, max_path_length, render)
         paths.append(path)
-        timesteps_this_batch = get_pathlength(path)
+        timesteps_this_batch += get_pathlength(path)
+        print('\n timesteps_this_batch: {0}'.format(timesteps_this_batch))
 
     return paths, timesteps_this_batch
 
@@ -77,7 +80,7 @@ def sample_n_trajectories(env, policy, ntraj, max_path_length, render=False, ren
     i = 0
     paths = []
     while i < ntraj:
-        path = sample_trajectories(env, policy, max_path_length, render)
+        path = sample_trajectory(env, policy, max_path_length, render)
         paths.append(path)
         i += 1
 
