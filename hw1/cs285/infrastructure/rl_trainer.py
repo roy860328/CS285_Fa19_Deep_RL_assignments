@@ -5,6 +5,7 @@ import numpy as np
 import tensorflow as tf
 import gym
 import os
+import wandb
 
 from cs285.infrastructure.utils import *
 from cs285.infrastructure.tf_utils import create_tf_session
@@ -77,6 +78,16 @@ class RL_Trainer(object):
         ## TODO initialize all of the TF variables (that were created by agent, etc.)
         ## HINT: use global_variables_initializer
         self.sess.run(tf.global_variables_initializer())
+
+        #############
+        ## INIT WANDB
+        #############
+        self.init_wandb()
+
+    def init_wandb(self):
+        wandb.init(project="cs285_hw5")
+        wandb.config.update(self.params)
+
 
     def run_training_loop(self, n_iter, collect_policy, eval_policy,
                         initial_expertdata=None, relabel_with_expert=False,
@@ -168,7 +179,7 @@ class RL_Trainer(object):
         # HINT1: use sample_trajectories from utils
         # HINT2: you want each of these collected rollouts to be of length self.params['ep_len']
         print("\nCollecting data to be used for training...")
-        paths, envsteps_this_batch = sample_trajectories(self.env, collect_policy, batch_size, self.params['ep_len'], render=True)
+        paths, envsteps_this_batch = sample_trajectories(self.env, collect_policy, batch_size, self.params['ep_len'], render=False)
 
         # collect more rollouts with the same policy, to be saved as videos in tensorboard
         # note: here, we collect MAX_NVIDEO rollouts, each of length MAX_VIDEO_LEN
@@ -263,6 +274,11 @@ class RL_Trainer(object):
             for key, value in logs.items():
                 print('{} : {}'.format(key, value))
                 self.logger.log_scalar(value, key, itr)
+            #############
+            ## UPLOAD WANDB
+            #############
+            wandb.log(logs)
+
             print('Done logging...\n\n')
 
             self.logger.flush()
