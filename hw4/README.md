@@ -1,3 +1,5 @@
+http://rail.eecs.berkeley.edu/deeprlcourse/static/homeworks/hw4.pdf
+
 1) See hw1 if you'd like to see installation instructions. You do NOT have to redo them.
 
 ##############################################
