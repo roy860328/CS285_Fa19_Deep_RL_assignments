@@ -86,7 +86,7 @@ class RL_Trainer(object):
 
     def init_wandb(self):
         wandb.init(project="cs285_hw5")
-        wandb.config.update(self.params)
+        # wandb.config.update(self.params)
 
 
     def run_training_loop(self, n_iter, collect_policy, eval_policy,

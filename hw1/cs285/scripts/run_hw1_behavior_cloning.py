@@ -54,6 +54,7 @@ class BC_Trainer(object):
 
 def main():
     import argparse
+    
     parser = argparse.ArgumentParser()
     parser.add_argument('--expert_policy_file', '-epf', type=str, required=True)  # relative to where you're running this script from
     parser.add_argument('--expert_data', '-ed', type=str, required=True) #relative to where you're running this script from
