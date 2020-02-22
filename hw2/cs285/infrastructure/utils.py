@@ -31,12 +31,11 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
         # use the most recent ob to decide what to do
         obs.append(ob)
         ac = policy.get_action(ob) # TODO: GETTHIS from HW1
-        ac = ac[0]
+        ac = ac[0][0]
         acs.append(ac)
 
         # take that action and record results
         ob, rew, done, _ = env.step(ac)
-
         # record result of taking that action
         steps += 1
         next_obs.append(ob)
@@ -48,6 +47,7 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
         terminals.append(rollout_done)
         
         if rollout_done: 
+            # print(steps)
             break
 
     return Path(obs, image_obs, acs, rewards, next_obs, terminals)
@@ -61,7 +61,7 @@ def sample_trajectories(env, policy, min_timesteps_per_batch, max_path_length, r
         path = sample_trajectory(env, policy, max_path_length, render)
         paths.append(path)
         timesteps_this_batch += get_pathlength(path)
-        print('\n timesteps_this_batch: {0}'.format(timesteps_this_batch))
+        # print('\n timesteps_this_batch: {0}'.format(timesteps_this_batch))
 
     return paths, timesteps_this_batch
 

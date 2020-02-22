@@ -52,6 +52,8 @@ class RL_Trainer(object):
         # Observation and action sizes
         ob_dim = self.env.observation_space.shape[0]
         ac_dim = self.env.action_space.n if discrete else self.env.action_space.shape[0]
+        print(ac_dim)
+        raise
         self.params['agent_params']['ac_dim'] = ac_dim
         self.params['agent_params']['ob_dim'] = ob_dim
 
@@ -141,7 +143,7 @@ class RL_Trainer(object):
 
     def collect_training_trajectories(self, itr, load_initial_expertdata, collect_policy, batch_size):
         # TODO: GETTHIS from HW1
-        if itr == 0:
+        if itr == 0 and load_initial_expertdata:
             with open(load_initial_expertdata, "rb") as f:
                 loaded_paths = pickle.load(f)
             return loaded_paths, 0, None
