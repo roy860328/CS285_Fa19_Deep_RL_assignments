@@ -1,0 +1,59 @@
+diff --git a/hw1/cs285/infrastructure/utils.py b/hw1/cs285/infrastructure/utils.py
+index 5a884aa..3ebcc05 100644
+--- a/hw1/cs285/infrastructure/utils.py
++++ b/hw1/cs285/infrastructure/utils.py
+@@ -29,7 +29,9 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
+         # use the most recent ob to decide what to do
+         obs.append(ob)
+         ac = policy.get_action(ob) # HINT: query the policy's get_action function
+-        ac = ac[0]
++        ac = ac[0][0]
++        print(ac)
++        raise
+         acs.append(ac)
+ 
+         # take that action and record results
+diff --git a/hw2/cs285/infrastructure/rl_trainer.py b/hw2/cs285/infrastructure/rl_trainer.py
+index 280c17d..467f705 100644
+--- a/hw2/cs285/infrastructure/rl_trainer.py
++++ b/hw2/cs285/infrastructure/rl_trainer.py
+@@ -47,6 +47,8 @@ class RL_Trainer(object):
+ 
+         # Is this env continuous, or self.discrete?
+         discrete = isinstance(self.env.action_space, gym.spaces.Discrete)
++        print(discrete)
++        print(self.env.action_space)
+         self.params['agent_params']['discrete'] = discrete
+ 
+         # Observation and action sizes
+@@ -141,7 +143,7 @@ class RL_Trainer(object):
+ 
+     def collect_training_trajectories(self, itr, load_initial_expertdata, collect_policy, batch_size):
+         # TODO: GETTHIS from HW1
+-        if itr == 0:
++        if itr == 0 and load_initial_expertdata:
+             with open(load_initial_expertdata, "rb") as f:
+                 loaded_paths = pickle.load(f)
+             return loaded_paths, 0, None
+diff --git a/hw2/cs285/infrastructure/utils.py b/hw2/cs285/infrastructure/utils.py
+index 3a3753e..93e543d 100644
+--- a/hw2/cs285/infrastructure/utils.py
++++ b/hw2/cs285/infrastructure/utils.py
+@@ -31,7 +31,7 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
+         # use the most recent ob to decide what to do
+         obs.append(ob)
+         ac = policy.get_action(ob) # TODO: GETTHIS from HW1
+-        ac = ac[0]
++        ac = ac[0][0]
+         acs.append(ac)
+ 
+         # take that action and record results
+@@ -61,7 +61,7 @@ def sample_trajectories(env, policy, min_timesteps_per_batch, max_path_length, r
+         path = sample_trajectory(env, policy, max_path_length, render)
+         paths.append(path)
+         timesteps_this_batch += get_pathlength(path)
+-        print('\n timesteps_this_batch: {0}'.format(timesteps_this_batch))
++        # print('\n timesteps_this_batch: {0}'.format(timesteps_this_batch))
+ 
+     return paths, timesteps_this_batch
+ 

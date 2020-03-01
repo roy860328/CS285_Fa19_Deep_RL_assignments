@@ -1,0 +1,580 @@
+diff --git a/CS285_Fa19_Deep_Reinforcement_Learning b/CS285_Fa19_Deep_Reinforcement_Learning
+--- a/CS285_Fa19_Deep_Reinforcement_Learning
++++ b/CS285_Fa19_Deep_Reinforcement_Learning
+@@ -1 +1 @@
+-Subproject commit ba2e8e18c60b3a074f735d045b40f04a20efffca
++Subproject commit ba2e8e18c60b3a074f735d045b40f04a20efffca-dirty
+diff --git a/hw1/cs285/infrastructure/__pycache__/utils.cpython-36.pyc b/hw1/cs285/infrastructure/__pycache__/utils.cpython-36.pyc
+index 7ee64b4..95204ff 100644
+Binary files a/hw1/cs285/infrastructure/__pycache__/utils.cpython-36.pyc and b/hw1/cs285/infrastructure/__pycache__/utils.cpython-36.pyc differ
+diff --git a/hw1/cs285/infrastructure/utils.py b/hw1/cs285/infrastructure/utils.py
+index 5a884aa..4ca52ea 100644
+--- a/hw1/cs285/infrastructure/utils.py
++++ b/hw1/cs285/infrastructure/utils.py
+@@ -49,7 +49,7 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
+         
+         if rollout_done: 
+             break
+-
++    print(rewards)
+     return Path(obs, image_obs, acs, rewards, next_obs, terminals)
+ 
+ def sample_trajectories(env, policy, min_timesteps_per_batch, max_path_length, render=False, render_mode=('rgb_array')):
+diff --git a/hw1/wandb/debug.log b/hw1/wandb/debug.log
+index 8d51fe9..ffcb9f9 100644
+--- a/hw1/wandb/debug.log
++++ b/hw1/wandb/debug.log
+@@ -1,477 +1,23 @@
+-2020-02-10 18:07:48,392 DEBUG   MainThread:23914 [wandb_config.py:_load_defaults():111] no defaults not found in config-defaults.yaml
+-2020-02-10 18:07:48,395 DEBUG   MainThread:23914 [meta.py:setup():94] code probe starting
+-2020-02-10 18:07:48,396 DEBUG   MainThread:23914 [meta.py:_setup_code_git():49] probe for git information
+-2020-02-10 18:07:48,396 DEBUG   MainThread:23914 [cmd.py:execute():719] Popen(['git', 'cat-file', '--batch-check'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=<valid stream>)
+-2020-02-10 18:07:48,400 DEBUG   MainThread:23914 [cmd.py:execute():719] Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+-2020-02-10 18:07:48,401 DEBUG   MainThread:23914 [meta.py:_setup_code_program():58] scan for untracked program
+-2020-02-10 18:07:48,402 DEBUG   MainThread:23914 [cmd.py:execute():719] Popen(['git', 'status', '--porcelain', '--untracked-files'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+-2020-02-10 18:07:48,404 DEBUG   MainThread:23914 [meta.py:setup():116] code probe done
+-2020-02-10 18:07:48,411 DEBUG   MainThread:23914 [run_manager.py:__init__():537] Initialized sync for cs285_hw1/5tj0fxb1
+-2020-02-10 18:07:48,413 INFO    MainThread:23914 [run_manager.py:wrap_existing_process():1135] wrapping existing process 23856
+-2020-02-10 18:07:48,413 WARNING MainThread:23914 [io_wrap.py:register():104] SIGWINCH handler was not None: <Handlers.SIG_DFL: 0>
+-2020-02-10 18:07:48,415 DEBUG   MainThread:23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): pypi.org:443
+-2020-02-10 18:07:49,069 DEBUG   MainThread:23914 [connectionpool.py:_make_request():437] https://pypi.org:443 "GET /pypi/wandb/json HTTP/1.1" 200 40617
+-2020-02-10 18:07:49,221 INFO    MainThread:23914 [run_manager.py:init_run():920] system metrics and metadata threads started
+-2020-02-10 18:07:49,221 INFO    MainThread:23914 [run_manager.py:init_run():954] upserting run before process can begin, waiting at most 10 seconds
+-2020-02-10 18:07:49,247 DEBUG   Thread-14 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:07:49,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:07:49,476 DEBUG   Thread-14 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 522
+-2020-02-10 18:07:49,479 INFO    Thread-14 :23914 [run_manager.py:_upsert_run():1039] saving patches
+-2020-02-10 18:07:49,479 DEBUG   Thread-14 :23914 [cmd.py:execute():719] Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+-2020-02-10 18:07:49,483 DEBUG   Thread-14 :23914 [cmd.py:execute():719] Popen(['git', 'diff', '--cached', '--abbrev=40', '--full-index', '--raw'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+-2020-02-10 18:07:49,485 DEBUG   Thread-14 :23914 [cmd.py:execute():719] Popen(['git', 'diff', '--abbrev=40', '--full-index', '--raw'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+-2020-02-10 18:07:49,488 DEBUG   Thread-14 :23914 [cmd.py:execute():719] Popen(['git', 'version'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+-2020-02-10 18:07:49,498 DEBUG   Thread-14 :23914 [cmd.py:execute():719] Popen(['git', 'merge-base', 'HEAD', '41b89ab7abaa611f9d48370ec223816a7447a3b6'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+-2020-02-10 18:07:49,503 INFO    Thread-14 :23914 [run_manager.py:_upsert_run():1043] saving pip packages
+-2020-02-10 18:07:49,504 INFO    Thread-14 :23914 [run_manager.py:_upsert_run():1045] initializing streaming files api
+-2020-02-10 18:07:49,504 INFO    Thread-14 :23914 [run_manager.py:_upsert_run():1052] unblocking file change observer, beginning sync with W&B servers
+-2020-02-10 18:07:49,505 INFO    Thread-3  :23914 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:07:49,505 INFO    MainThread:23914 [run_manager.py:wrap_existing_process():1152] informing user process we are ready to proceed
+-2020-02-10 18:07:49,510 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:07:49,510 INFO    MainThread:23914 [run_manager.py:_sync_etc():1259] entering loop for messages from user process
+-2020-02-10 18:07:49,707 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:07:50,395 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/config.yaml
+-2020-02-10 18:07:50,399 DEBUG   Thread-3  :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:07:50,612 DEBUG   Thread-3  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 575
+-2020-02-10 18:07:50,614 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:07:50,614 INFO    Thread-3  :23914 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/diff.patch
+-2020-02-10 18:07:50,614 INFO    Thread-3  :23914 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/requirements.txt
+-2020-02-10 18:07:51,395 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:07:51,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:07:51,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:07:51,399 DEBUG   Thread-17 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:07:51,508 DEBUG   Thread-7  :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:07:51,605 DEBUG   Thread-17 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 786
+-2020-02-10 18:07:51,608 DEBUG   Thread-17 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): storage.googleapis.com:443
+-2020-02-10 18:07:51,935 DEBUG   Thread-17 :23914 [connectionpool.py:_make_request():437] https://storage.googleapis.com:443 "PUT /wandb-production.appspot.com/roy860328/cs285_hw1/5tj0fxb1/___batch_archive_1.tgz?Expires=1581329331&GoogleAccessId=gorilla-cloud-storage%40wandb-production.iam.gserviceaccount.com&Signature=kl4yJPKaMQaOgPvbVj2KW7wBcpg4ZbhFFzPbDhflisa75DmEuqQKTcnzqICoJLRyPZykXLyHG%2BtwvAGmTJ8ztPXfTAO43KFXW5lp9yONkdFQ13gmNOYnOlOjisUzqmQrRxmgRnlG6EnjN86Ab5aPNDlNpdM0Zb2vm%2Ftsi1tJ1dtOksH%2FE5Z9KW1qcP1oZheMNZ%2BYpny42nTJ7HQZbZIW2lYXVd8vFo9swvs5oSnuZm4EptxxcBtEyd0VTMo5P98CCo92Ew8fIu6jZqmcDv5tHvdjBRcbmc5%2BRzYOkmGFrXiMKU8SHcbqXap78bYQSolpLTChpcCEVxIOwLVq7H%2FoGg%3D%3D HTTP/1.1" 200 0
+-2020-02-10 18:07:52,064 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:07:52,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:07:52,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:07:52,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:07:53,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:07:54,111 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:07:54,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:07:54,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:07:54,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:07:55,396 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:07:55,910 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:07:56,397 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:07:56,397 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:07:56,397 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:07:57,397 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:07:57,862 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:07:58,397 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:07:58,397 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:07:58,397 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:07:59,397 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:00,057 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:00,398 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:01,398 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:01,870 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:02,398 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:03,398 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:03,829 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:04,398 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:04,710 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:08:04,906 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:08:05,399 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:05,399 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:08:06,694 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:07,399 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:07,399 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:07,400 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:08,399 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:08,400 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:08,400 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:08,892 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:09,400 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:10,400 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:10,400 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:10,401 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:11,010 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:11,400 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:12,401 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:12,401 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:12,401 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:12,984 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:13,401 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:14,401 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:14,401 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:14,401 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:14,977 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:15,401 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:16,401 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:17,168 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:17,402 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:17,402 INFO    Thread-3  :23914 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-events.jsonl
+-2020-02-10 18:08:18,402 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:19,167 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:19,402 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:19,909 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:08:20,102 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:08:20,402 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:21,403 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:21,403 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:08:22,403 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:22,403 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:22,403 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:22,526 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:23,403 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:24,403 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:24,404 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:24,404 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:24,688 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:25,404 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:26,404 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:26,404 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:26,404 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:26,755 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:27,405 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:28,405 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:28,405 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:28,405 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:28,731 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:29,405 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:30,405 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:30,406 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:30,406 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:30,756 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:31,406 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:32,406 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:33,123 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:33,406 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:34,406 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:35,067 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:35,105 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:08:35,301 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:08:35,407 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:36,407 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:37,407 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:37,407 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:08:38,407 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:38,408 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:38,408 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:38,413 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:39,408 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:40,408 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:40,408 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:40,408 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:40,624 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:41,408 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:42,408 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:42,409 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:42,409 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:42,662 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:43,409 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:44,409 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:44,409 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:44,409 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:44,706 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:45,409 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:46,410 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:46,410 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:46,410 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:46,762 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:47,410 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:48,410 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-events.jsonl
+-2020-02-10 18:08:48,410 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:49,410 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:50,303 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:08:50,411 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:50,501 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:08:51,411 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:52,411 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:53,411 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:53,412 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:08:55,412 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:55,412 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:55,412 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:56,412 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:56,746 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:08:57,412 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:57,413 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:57,413 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:58,413 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:08:59,413 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:08:59,413 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:08:59,413 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:00,413 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:01,413 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:01,414 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:01,414 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:02,414 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:03,414 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:03,414 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:03,414 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:04,414 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:05,415 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:05,504 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:09:05,697 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:09:06,415 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:07,054 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:09:07,415 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:08,416 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:09,416 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:09,416 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:09:10,416 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:11,416 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:12,417 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:12,417 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:12,417 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:13,417 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:14,417 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:14,417 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:14,418 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:15,417 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:16,418 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:16,848 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:09:17,418 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:17,418 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:17,418 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:18,418 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-events.jsonl
+-2020-02-10 18:09:18,418 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:19,419 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:19,419 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:19,419 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:20,419 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:20,700 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:09:20,892 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:09:21,419 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:21,419 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:21,419 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:22,419 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:23,420 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:24,420 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:25,420 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:25,420 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:09:26,420 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:27,249 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:09:27,421 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:28,421 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:29,422 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:29,422 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:29,422 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:30,422 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:31,422 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:32,422 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:32,422 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:32,423 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:33,423 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:34,423 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:34,423 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:34,423 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:35,423 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:35,895 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:09:36,088 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:09:36,423 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:37,156 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:09:37,424 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:37,424 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:37,424 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:38,424 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:39,424 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:39,424 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:39,425 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:40,424 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:41,425 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:41,425 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:09:42,425 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:43,425 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:44,425 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:45,426 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:46,426 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:47,903 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:09:48,427 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:48,427 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:48,427 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-events.jsonl
+-2020-02-10 18:09:48,427 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:49,427 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:50,427 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:50,427 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:50,428 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:51,091 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:09:51,281 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:09:51,427 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:52,428 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:52,428 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:52,428 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:53,428 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:54,428 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:54,428 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:54,428 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:55,429 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:56,429 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:57,429 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:09:57,429 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:09:57,430 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:09:57,430 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:58,144 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:09:58,429 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:09:59,430 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:00,430 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:01,430 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:02,430 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:03,431 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:04,431 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:05,431 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:05,432 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:05,432 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:06,284 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:10:06,432 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:06,478 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:10:07,432 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:07,920 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:10:08,432 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:08,432 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:08,433 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:09,432 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:10,433 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:10,433 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:10,433 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:11,433 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:12,433 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:13,433 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:13,434 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:10:13,434 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:13,434 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:14,434 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:15,434 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:15,434 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:15,434 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:16,435 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:17,435 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:18,125 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:10:18,435 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-events.jsonl
+-2020-02-10 18:10:18,435 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:19,435 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:20,436 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:21,436 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:21,480 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:10:21,680 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:10:22,436 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:23,437 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:24,437 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:24,437 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:24,437 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:25,437 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:26,437 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:27,438 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:27,438 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:27,438 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:27,918 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:10:28,438 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:29,438 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:29,438 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:10:29,439 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:29,439 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:30,439 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:31,439 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:32,439 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:32,440 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:32,440 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:33,440 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:34,440 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:34,440 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:34,440 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:35,440 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:36,440 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:36,683 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:10:36,881 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:10:37,441 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:38,308 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:10:38,441 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:39,441 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:40,442 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:41,442 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:42,442 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:44,443 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:44,443 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:44,443 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:45,443 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:45,443 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:10:46,443 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:46,443 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:46,444 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:47,443 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:48,280 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:10:48,444 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:48,444 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:48,444 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-events.jsonl
+-2020-02-10 18:10:48,444 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:49,444 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:50,444 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:51,444 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:51,445 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:51,445 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:51,884 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:10:52,077 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:10:52,445 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:53,445 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:54,445 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:10:54,445 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:10:54,445 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:55,445 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:56,446 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:57,446 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:58,446 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:10:58,497 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:10:59,446 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:00,447 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:01,447 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:01,447 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:11:03,447 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:11:03,448 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:11:03,448 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:04,448 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:05,448 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:11:05,448 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:11:05,448 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:06,448 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:07,080 DEBUG   Thread-15 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:11:07,272 DEBUG   Thread-15 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 46
+-2020-02-10 18:11:07,449 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:08,394 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:11:08,449 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:11:08,449 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:11:08,449 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:09,449 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:10,449 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:11:10,450 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:11:10,450 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:11,449 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:12,450 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:13,450 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-summary.json
+-2020-02-10 18:11:13,450 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-history.jsonl
+-2020-02-10 18:11:13,450 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:14,450 INFO    Thread-3  :23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:15,009 INFO    MainThread:23914 [run_manager.py:_sync_etc():1315] process received interrupt signal, shutting down
+-2020-02-10 18:11:15,009 INFO    MainThread:23914 [run_manager.py:_sync_etc():1368] closing log streams and sending exitcode to W&B
+-2020-02-10 18:11:15,009 INFO    MainThread:23914 [run_manager.py:shutdown():1059] shutting down system stats and metadata service
+-2020-02-10 18:11:15,413 INFO    MainThread:23914 [run_manager.py:shutdown():1071] stopping streaming files and file change observer
+-2020-02-10 18:11:15,452 INFO    MainThread:23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/output.log
+-2020-02-10 18:11:15,453 INFO    MainThread:23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-events.jsonl
+-2020-02-10 18:11:15,453 INFO    MainThread:23914 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200210_100748-5tj0fxb1/wandb-metadata.json
+-2020-02-10 18:11:15,460 DEBUG   MainThread:23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:11:15,462 DEBUG   Thread-19 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:11:15,662 DEBUG   Thread-19 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 766
+-2020-02-10 18:11:15,665 DEBUG   Thread-19 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): storage.googleapis.com:443
+-2020-02-10 18:11:15,692 DEBUG   MainThread:23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 575
+-2020-02-10 18:11:16,509 DEBUG   Thread-19 :23914 [connectionpool.py:_make_request():437] https://storage.googleapis.com:443 "PUT /wandb-production.appspot.com/roy860328/cs285_hw1/5tj0fxb1/output.log?Expires=1581329535&GoogleAccessId=gorilla-cloud-storage%40wandb-production.iam.gserviceaccount.com&Signature=ThOklIrgPuDFTLyP%2BKNmk3iwskTMMp9aUCPdG4AY2myPSaGm3B4EgppMGJX%2BmISb2ZID70v9KS2ZpRHLN6hbobSLwpqfhhD47W0jCljjq1XMUsank4P97V6%2BcXyF%2FU5q8c7lkcfqxbXK57%2BldBrasxlczUzdJZqODCglLzAfm6CfNWANf8Sd2GMddH1ZoefXV1oP6NRjNNsZFrZzCYP48kDuMXiGr5IIyTsGo7mAmcMyEIKZC7j%2FpXRvpruwRzSNXCVPMAtuabElPnwv%2BL3I0H7f5YEuQEl6nBph52GRG2%2BLVp34Wrhg6yvsHA8pxBPlp9Czbdm46FcEswSP7UEhnA%3D%3D HTTP/1.1" 200 0
+-2020-02-10 18:11:17,586 DEBUG   Thread-20 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:11:17,694 DEBUG   Thread-21 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:11:17,787 DEBUG   Thread-22 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+-2020-02-10 18:11:17,794 DEBUG   Thread-20 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 799
+-2020-02-10 18:11:17,797 DEBUG   Thread-20 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): storage.googleapis.com:443
+-2020-02-10 18:11:17,921 DEBUG   Thread-21 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 787
+-2020-02-10 18:11:17,933 DEBUG   Thread-21 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): storage.googleapis.com:443
+-2020-02-10 18:11:17,994 DEBUG   Thread-22 :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 788
+-2020-02-10 18:11:17,999 DEBUG   Thread-22 :23914 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): storage.googleapis.com:443
+-2020-02-10 18:11:18,101 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 311
+-2020-02-10 18:11:18,143 DEBUG   Thread-20 :23914 [connectionpool.py:_make_request():437] https://storage.googleapis.com:443 "PUT /wandb-production.appspot.com/roy860328/cs285_hw1/5tj0fxb1/wandb-metadata.json?Expires=1581329537&GoogleAccessId=gorilla-cloud-storage%40wandb-production.iam.gserviceaccount.com&Signature=pDXBVITmy%2FnPbbeBrWmq1L7xXgN5KZQY0GQIKy96ix1CPqFz0NpOXunYed6chhxfbtVWqs5uSk3SlcdllSCAJEMcf4a4j5iGKIV0pdqmLTUEdtPO1bmG3NTV1L1T8bwhHN%2BKYGWDCrfHgOSxnUr%2B%2BUaH9KlHLxRNu8F3p3kM%2BQBHrRml0NU0791GohsNKg2z0XZ2TRonwZv81avjxv0HJds5DLQ915ZhRtzj4iTQQWTIN5OXzb26ZP6eznErTpSPwsXBr1FqOPWyemmO%2Ba5arOcnFkK1DeksyKf6dRkBlbiMCyR8Tud2lYqAmniT3jixb29xNQOq0xlozy74D%2Fkp5Q%3D%3D HTTP/1.1" 200 0
+-2020-02-10 18:11:18,286 DEBUG   Thread-7  :23914 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw1/5tj0fxb1/file_stream HTTP/1.1" 200 310
+-2020-02-10 18:11:18,287 INFO    MainThread:23914 [run_manager.py:_sync_etc():1387] rendering summary
+-2020-02-10 18:11:18,290 INFO    MainThread:23914 [run_manager.py:_sync_etc():1420] syncing files to cloud storage
+-2020-02-10 18:11:18,293 DEBUG   Thread-21 :23914 [connectionpool.py:_make_request():437] https://storage.googleapis.com:443 "PUT /wandb-production.appspot.com/roy860328/cs285_hw1/5tj0fxb1/config.yaml?Expires=1581329537&GoogleAccessId=gorilla-cloud-storage%40wandb-production.iam.gserviceaccount.com&Signature=Af3wFT3Xwl27dHswO%2BgQBror6bm%2B6zWLX18Ip93gAJS7mH5aWZcDKiaimdIlNBdrfaJFh77SYeBxhIYnrrlklRlepxqXQeF6Q6zwXZPWN8b3x7AdIRBdrFp4Wq80PCd%2FgUvWcGNwKziCiaD8BETOVKor7E4Ru6Ca2UtZ%2BmzkcBG2kx8SQuXBULADD4YCAoIR4wJCsdPb1rTWO55vmgwLpVnx1Jv4W5%2F%2FAxuzE1Md3E6s%2BBuLVe3ZM25gOw0m4HBjetOUXB5duW2OPDUW0xLgHpG%2F1H2NnN5oXZ4KC61BHX8%2F17zXfoFPpBdIolG0ZBAbmW2FHftXyGVs8tMsADIf1Q%3D%3D HTTP/1.1" 200 0
+-2020-02-10 18:11:18,420 DEBUG   Thread-22 :23914 [connectionpool.py:_make_request():437] https://storage.googleapis.com:443 "PUT /wandb-production.appspot.com/roy860328/cs285_hw1/5tj0fxb1/wandb-summary.json?Expires=1581329537&GoogleAccessId=gorilla-cloud-storage%40wandb-production.iam.gserviceaccount.com&Signature=pk70cMRQpxfKCF3aG1rLYPMCmVPyv7ZCL7sM6DlZ7eH9EIMHnfVlDPn%2BsBojqB8QXRajUGuY5%2FH5vKJJ0uOuac3pBg%2BNb5HIZUiYTNY8lA4DCbY4oF1pJAtkPhzVFw7daa06mY30bDcoBEY%2BIpj4EAanjlUn3eco%2BygsivLbpAlIT7aZLw8X5iMvGQwOakDtQB6i4BiVRoT%2ByIkOYkln56ZnLu2nl8BdPhgp0%2BcQfzabkdA%2Bc9LjPxSZgq5PZqoCP9p4n2E4uBqk2maCPtiq70DiBTJbD92nYgjb03X5c%2FA45XdMR8S%2BG2kHFuosUdmu9WR0craGiWtBYB%2Fp7Gpntw%3D%3D HTTP/1.1" 200 0
+-2020-02-10 18:11:19,547 INFO    MainThread:23914 [run_manager.py:_sync_etc():1435] syncing complete: https://app.wandb.ai/roy860328/cs285_hw1/runs/5tj0fxb1
+-2020-02-10 18:11:19,547 INFO    MainThread:23914 [5tj0fxb1:run_manager.py:_sync_etc():1435] syncing complete: https://app.wandb.ai/roy860328/cs285_hw1/runs/5tj0fxb1
++2020-02-20 21:23:05,150 DEBUG   MainThread:15549 [wandb_config.py:_load_defaults():111] no defaults not found in config-defaults.yaml
++2020-02-20 21:23:05,153 DEBUG   MainThread:15549 [meta.py:setup():94] code probe starting
++2020-02-20 21:23:05,154 DEBUG   MainThread:15549 [meta.py:_setup_code_git():49] probe for git information
++2020-02-20 21:23:05,155 DEBUG   MainThread:15549 [cmd.py:execute():719] Popen(['git', 'cat-file', '--batch-check'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=<valid stream>)
++2020-02-20 21:23:05,158 DEBUG   MainThread:15549 [cmd.py:execute():719] Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
++2020-02-20 21:23:05,160 DEBUG   MainThread:15549 [meta.py:_setup_code_program():58] scan for untracked program
++2020-02-20 21:23:05,160 DEBUG   MainThread:15549 [cmd.py:execute():719] Popen(['git', 'status', '--porcelain', '--untracked-files'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
++2020-02-20 21:23:05,172 DEBUG   MainThread:15549 [meta.py:setup():116] code probe done
++2020-02-20 21:23:05,178 DEBUG   MainThread:15549 [run_manager.py:__init__():537] Initialized sync for cs285_hw1/x1ua8fij
++2020-02-20 21:23:05,180 INFO    MainThread:15549 [run_manager.py:wrap_existing_process():1135] wrapping existing process 15477
++2020-02-20 21:23:05,180 WARNING MainThread:15549 [io_wrap.py:register():104] SIGWINCH handler was not None: <Handlers.SIG_DFL: 0>
++2020-02-20 21:23:05,183 DEBUG   MainThread:15549 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): pypi.org:443
++2020-02-20 21:23:05,780 DEBUG   MainThread:15549 [connectionpool.py:_make_request():437] https://pypi.org:443 "GET /pypi/wandb/json HTTP/1.1" 200 41171
++2020-02-20 21:23:06,067 INFO    MainThread:15549 [run_manager.py:init_run():920] system metrics and metadata threads started
++2020-02-20 21:23:06,067 INFO    MainThread:15549 [run_manager.py:init_run():954] upserting run before process can begin, waiting at most 10 seconds
++2020-02-20 21:23:06,072 DEBUG   Thread-14 :15549 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
++2020-02-20 21:23:06,157 INFO    Thread-3  :15549 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200220_132304-x1ua8fij/output.log
++2020-02-20 21:23:06,330 DEBUG   Thread-14 :15549 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
++2020-02-20 21:23:06,345 INFO    Thread-14 :15549 [run_manager.py:_upsert_run():1039] saving patches
++2020-02-20 21:23:06,346 DEBUG   Thread-14 :15549 [cmd.py:execute():719] Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
++2020-02-20 21:23:06,356 DEBUG   Thread-14 :15549 [cmd.py:execute():719] Popen(['git', 'diff', '--cached', '--abbrev=40', '--full-index', '--raw'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
++2020-02-20 21:23:06,358 DEBUG   Thread-14 :15549 [cmd.py:execute():719] Popen(['git', 'diff', '--abbrev=40', '--full-index', '--raw'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
++2020-02-20 21:23:06,372 DEBUG   Thread-14 :15549 [cmd.py:execute():719] Popen(['git', 'version'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+diff --git a/hw2/cs285/policies/MLP_policy.py b/hw2/cs285/policies/MLP_policy.py
+index 465c3bd..141b37c 100644
+--- a/hw2/cs285/policies/MLP_policy.py
++++ b/hw2/cs285/policies/MLP_policy.py
+@@ -107,15 +107,45 @@ class MLPPolicy(BasePolicy):
+     # query the neural net that's our 'policy' function, as defined by an mlp above
+     # query the policy with observation(s) to get selected action(s)
+     def get_action(self, obs):
+-
++        pass
+         # TODO: GETTHIS from HW1
+ 
+ #####################################################
+ #####################################################
+ 
+-# class MLPPolicySL(MLPPolicy):
+ 
+-    # TODO: GETTHIS from HW1 (or comment it out, since you don't need it for this homework)
++class MLPPolicySL(MLPPolicy):
++
++    """
++        This class is a special case of MLPPolicy,
++        which is trained using supervised learning.
++        The relevant functions to define are included below.
++    """
++
++    def define_placeholders(self):
++        # placeholder for observations
++        self.observations_pl = tf.placeholder(shape=[None, self.ob_dim], name="ob", dtype=tf.float32)
++
++        # placeholder for actions
++        self.actions_pl = tf.placeholder(shape=[None, self.ac_dim], name="ac", dtype=tf.float32)
++
++        if self.training:
++            self.acs_labels_na = tf.placeholder(shape=[None, self.ac_dim], name="labels", dtype=tf.float32)
++
++    def define_train_op(self):
++        true_actions = self.acs_labels_na
++        predicted_actions = self.sample_ac
++
++        # TODO define the loss that will be used to train this policy
++        # HINT1: remember that we are doing supervised learning
++        # HINT2: use tf.losses.mean_squared_error
++        self.loss = tf.losses.mean_squared_error(true_actions, predicted_actions)
++        self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
++
++    def update(self, observations, actions):
++        assert(self.training, 'Policy must be created with training=True in order to perform training updates...')
++        loss, _ = self.sess.run([self.loss, self.train_op], feed_dict={self.observations_pl: observations, self.acs_labels_na: actions})
++        print('\n loss: {0}'.format(loss))
+ 
+ #####################################################
+ #####################################################

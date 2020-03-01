@@ -1,0 +1,55 @@
+2020-02-21 22:26:04,028 DEBUG   MainThread:29180 [wandb_config.py:_load_defaults():111] no defaults not found in config-defaults.yaml
+2020-02-21 22:26:04,031 DEBUG   MainThread:29180 [meta.py:setup():94] code probe starting
+2020-02-21 22:26:04,031 DEBUG   MainThread:29180 [meta.py:_setup_code_git():49] probe for git information
+2020-02-21 22:26:04,032 DEBUG   MainThread:29180 [cmd.py:execute():719] Popen(['git', 'cat-file', '--batch-check'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=<valid stream>)
+2020-02-21 22:26:04,035 DEBUG   MainThread:29180 [cmd.py:execute():719] Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+2020-02-21 22:26:04,037 DEBUG   MainThread:29180 [meta.py:_setup_code_program():58] scan for untracked program
+2020-02-21 22:26:04,037 DEBUG   MainThread:29180 [cmd.py:execute():719] Popen(['git', 'status', '--porcelain', '--untracked-files'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+2020-02-21 22:26:04,040 DEBUG   MainThread:29180 [meta.py:setup():116] code probe done
+2020-02-21 22:26:04,046 DEBUG   MainThread:29180 [run_manager.py:__init__():537] Initialized sync for cs285_hw5/vh77ufly
+2020-02-21 22:26:04,048 INFO    MainThread:29180 [run_manager.py:wrap_existing_process():1135] wrapping existing process 29108
+2020-02-21 22:26:04,048 WARNING MainThread:29180 [io_wrap.py:register():104] SIGWINCH handler was not None: <Handlers.SIG_DFL: 0>
+2020-02-21 22:26:04,051 DEBUG   MainThread:29180 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): pypi.org:443
+2020-02-21 22:26:04,642 DEBUG   MainThread:29180 [connectionpool.py:_make_request():437] https://pypi.org:443 "GET /pypi/wandb/json HTTP/1.1" 200 41171
+2020-02-21 22:26:04,927 INFO    MainThread:29180 [run_manager.py:init_run():920] system metrics and metadata threads started
+2020-02-21 22:26:04,927 INFO    MainThread:29180 [run_manager.py:init_run():954] upserting run before process can begin, waiting at most 10 seconds
+2020-02-21 22:26:04,952 DEBUG   Thread-14 :29180 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+2020-02-21 22:26:05,035 INFO    Thread-3  :29180 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200221_142603-vh77ufly/wandb-metadata.json
+2020-02-21 22:26:05,207 DEBUG   Thread-14 :29180 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+2020-02-21 22:26:05,210 INFO    Thread-14 :29180 [run_manager.py:_upsert_run():1039] saving patches
+2020-02-21 22:26:05,210 DEBUG   Thread-14 :29180 [cmd.py:execute():719] Popen(['git', 'rev-parse', '--show-toplevel'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+2020-02-21 22:26:05,213 DEBUG   Thread-14 :29180 [cmd.py:execute():719] Popen(['git', 'diff', '--cached', '--abbrev=40', '--full-index', '--raw'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+2020-02-21 22:26:05,216 DEBUG   Thread-14 :29180 [cmd.py:execute():719] Popen(['git', 'diff', '--abbrev=40', '--full-index', '--raw'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+2020-02-21 22:26:05,219 DEBUG   Thread-14 :29180 [cmd.py:execute():719] Popen(['git', 'version'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+2020-02-21 22:26:05,227 DEBUG   Thread-14 :29180 [cmd.py:execute():719] Popen(['git', 'merge-base', 'HEAD', '5c7b9bdf55280f2f736b1c7775d852fb0dda6086'], cwd=/home/cilab/Desktop/homework_fall2019, universal_newlines=False, shell=None, istream=None)
+2020-02-21 22:26:05,231 INFO    Thread-14 :29180 [run_manager.py:_upsert_run():1043] saving pip packages
+2020-02-21 22:26:05,231 INFO    Thread-14 :29180 [run_manager.py:_upsert_run():1045] initializing streaming files api
+2020-02-21 22:26:05,232 INFO    Thread-14 :29180 [run_manager.py:_upsert_run():1052] unblocking file change observer, beginning sync with W&B servers
+2020-02-21 22:26:05,232 INFO    MainThread:29180 [run_manager.py:wrap_existing_process():1152] informing user process we are ready to proceed
+2020-02-21 22:26:05,233 INFO    Thread-3  :29180 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200221_142603-vh77ufly/output.log
+2020-02-21 22:26:05,236 DEBUG   Thread-15 :29180 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+2020-02-21 22:26:05,236 INFO    MainThread:29180 [run_manager.py:_sync_etc():1259] entering loop for messages from user process
+2020-02-21 22:26:05,434 DEBUG   Thread-15 :29180 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+2020-02-21 22:26:05,830 INFO    MainThread:29180 [run_manager.py:_sync_etc():1282] received message from user process: {"exitcode": 1}
+2020-02-21 22:26:05,830 INFO    MainThread:29180 [run_manager.py:_sync_etc():1368] closing log streams and sending exitcode to W&B
+2020-02-21 22:26:05,831 INFO    MainThread:29180 [run_manager.py:shutdown():1059] shutting down system stats and metadata service
+2020-02-21 22:26:05,929 INFO    MainThread:29180 [run_manager.py:shutdown():1071] stopping streaming files and file change observer
+2020-02-21 22:26:06,032 INFO    Thread-3  :29180 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200221_142603-vh77ufly/wandb-metadata.json
+2020-02-21 22:26:06,034 INFO    MainThread:29180 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200221_142603-vh77ufly/output.log
+2020-02-21 22:26:06,034 INFO    MainThread:29180 [run_manager.py:_on_file_modified():684] file/dir modified: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200221_142603-vh77ufly/config.yaml
+2020-02-21 22:26:06,056 DEBUG   MainThread:29180 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+2020-02-21 22:26:06,300 DEBUG   MainThread:29180 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+2020-02-21 22:26:06,306 INFO    MainThread:29180 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200221_142603-vh77ufly/wandb-events.jsonl
+2020-02-21 22:26:06,307 INFO    MainThread:29180 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200221_142603-vh77ufly/requirements.txt
+2020-02-21 22:26:06,309 INFO    MainThread:29180 [run_manager.py:_on_file_created():673] file/dir created: /home/cilab/Desktop/homework_fall2019/hw1/wandb/run-20200221_142603-vh77ufly/diff.patch
+2020-02-21 22:26:06,332 DEBUG   MainThread:29180 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+2020-02-21 22:26:06,574 DEBUG   MainThread:29180 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+2020-02-21 22:26:07,040 DEBUG   Thread-18 :29180 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+2020-02-21 22:26:07,250 DEBUG   Thread-18 :29180 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+2020-02-21 22:26:07,265 DEBUG   Thread-18 :29180 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): storage.googleapis.com:443
+2020-02-21 22:26:07,325 DEBUG   Thread-7  :29180 [connectionpool.py:_new_conn():959] Starting new HTTPS connection (1): api.wandb.ai:443
+2020-02-21 22:26:07,643 DEBUG   Thread-18 :29180 [connectionpool.py:_make_request():437] https://storage.googleapis.com:443 "PUT /wandb-production.appspot.com/roy860328/cs285_hw5/vh77ufly/___batch_archive_1.tgz?Expires=1582295227&GoogleAccessId=gorilla-cloud-storage%40wandb-production.iam.gserviceaccount.com&Signature=QuJgzgdWbaZnfnwoOJInlylLTZNtWXmKIaH%2BvEV%2BhP9qRWtzWPEpDH2ChaqqtGbrwr1K4EWyMcdNHno%2FPqTwu4qCspSW2ZmQGm8gCckSCDaeEvep0hnWnHIMmM83MjaWX%2BW6Jur7FjjwUx1NyR7sjBVfP5UaTc%2B0UBHQjtB7SpqPr0QJYxjv3gPkkRT9BzO9tyeyzy%2F3SeA6bI5YQnydIHcoBAbaAb3tMlwUI2hQTNC7YKTeuu8vZ57JFHxb7ITfJXmOhmsqouf5zi9TAfJDUHnhSGrkB3LZHMvlRQrnGJWbs65lf%2Fg0fNp%2FYKvfjpXbLk6iinrjg4%2FetX6XkJsAaA%3D%3D HTTP/1.1" 200 0
+2020-02-21 22:26:07,765 DEBUG   Thread-7  :29180 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw5/vh77ufly/file_stream HTTP/1.1" 200 None
+2020-02-21 22:26:07,960 DEBUG   Thread-7  :29180 [connectionpool.py:_make_request():437] https://api.wandb.ai:443 "POST /files/roy860328/cs285_hw5/vh77ufly/file_stream HTTP/1.1" 200 None
+2020-02-21 22:26:07,962 INFO    MainThread:29180 [run_manager.py:_sync_etc():1380] process only ran for 4 seconds, not syncing files
+2020-02-21 22:26:07,962 INFO    MainThread:29180 [vh77ufly:run_manager.py:_sync_etc():1380] process only ran for 4 seconds, not syncing files
