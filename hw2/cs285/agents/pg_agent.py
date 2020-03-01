@@ -32,7 +32,8 @@ class PGAgent(BaseAgent):
                                  self.agent_params['size'],
                                  discrete=self.agent_params['discrete'],
                                  learning_rate=self.agent_params['learning_rate'],
-                                 nn_baseline=self.agent_params['nn_baseline']
+                                 nn_baseline=self.agent_params['nn_baseline'],
+                                 GAE=self.GAE
                                  ) 
 
         # replay buffer
@@ -69,26 +70,32 @@ class PGAgent(BaseAgent):
         if self.GAE:
             '''
             param Agaes : log pi*each Agae
-            param b_n   : V(St)
+            param V_St1
             param sum_Agae : Agae
             '''
             Agaes = []
-            for o, r in zip(obs, rewards):
+            obs_index = 0
+            for r in rews_list:
                 ### All Agae
                 for t in range(len(r)):
-                    b_n_unnormalized = self.actor.run_baseline_prediction(o)
-                    b_n = b_n_unnormalized * np.std(q_values) + np.mean(q_values)
                     ### summation
                     sum_Agae = 0
                     for t_prime in range(t, len(r)):
                         if t_prime == len(r)-1:
                             break
+                        V_St1 = self.actor.run_baseline_prediction(obs[t_prime+obs_index+1])
+                        V_St = self.actor.run_baseline_prediction(obs[t_prime+obs_index])
+                        # print(t_prime)
+                        # print(len(r))
+                        # print(len(rews_list))
+                        # print(len(obs))
                         discounted = np.power(self.gamma*self.Lambda, t_prime)
                         delta = r[t_prime] \
-                                + self.gamma*b_n[t_prime+1] \
-                                + b_n[t_prime]
+                                + self.gamma*V_St1 \
+                                - V_St
                         sum_Agae += discounted * delta
                     Agaes.append(sum_Agae)
+                obs_index += len(r)
             advantage_values = Agaes
         else:
         # step 2: calculate advantages that correspond to each (s_t, a_t) point

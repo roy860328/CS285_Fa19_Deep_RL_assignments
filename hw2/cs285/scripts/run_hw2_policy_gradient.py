@@ -63,7 +63,7 @@ def main():
         
     parser.add_argument('--reward_to_go', '-rtg', action='store_true')
     parser.add_argument('--nn_baseline', action='store_true')
-    parser.add_argument('--GAE', action='store_true')
+    parser.add_argument('--GAE', "-gae", action='store_true')
     parser.add_argument('--Lambda', type=float, default=0.9)
     parser.add_argument('--dont_standardize_advantages', '-dsa', action='store_true')
     parser.add_argument('--batch_size', '-b', type=int, default=1000) #steps collected per train iteration

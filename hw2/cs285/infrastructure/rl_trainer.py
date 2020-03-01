@@ -22,7 +22,7 @@ class RL_Trainer(object):
         #############
         ## INIT
         #############
-        
+
         # Get params, create logger, create TF session
         self.params = params
         self.logger = Logger(self.params['logdir'])
@@ -52,6 +52,7 @@ class RL_Trainer(object):
         # Observation and action sizes
         ob_dim = self.env.observation_space.shape[0]
         ac_dim = self.env.action_space.n if discrete else self.env.action_space.shape[0]
+        print(ob_dim)
         print(ac_dim)
         # raise
         self.params['agent_params']['ac_dim'] = ac_dim

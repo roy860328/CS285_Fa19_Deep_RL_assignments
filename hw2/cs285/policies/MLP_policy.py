@@ -17,6 +17,7 @@ class MLPPolicy(BasePolicy):
         policy_scope='policy_vars',
         discrete=False, # unused for now
         nn_baseline=False, # unused for now
+        GAE=False,
         **kwargs):
         super().__init__(**kwargs)
 
@@ -30,6 +31,7 @@ class MLPPolicy(BasePolicy):
         self.learning_rate = learning_rate
         self.training = training
         self.nn_baseline = nn_baseline
+        self.GAE = GAE
 
         # build TF graph
         with tf.variable_scope(policy_scope, reuse=tf.AUTO_REUSE):
@@ -230,6 +232,10 @@ class MLPPolicyPG(MLPPolicy):
 
         _, loss = self.sess.run([self.train_op, self.loss], feed_dict={self.observations_pl: observations, self.actions_pl: acs_na, self.adv_n: adv_n})
 
+        if self.GAE:
+            targets_n = qvals
+            _, _, loss = self.sess.run([self.baseline_prediction, self.baseline_update_op, self.baseline_loss], feed_dict={self.observations_pl: observations, self.targets_n: targets_n})
+            return loss
         if self.nn_baseline:
             targets_n = (qvals - np.mean(qvals))/(np.std(qvals)+1e-8)
             # TODO: update the nn baseline with the targets_n
