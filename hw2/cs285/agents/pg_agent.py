@@ -16,6 +16,7 @@ class PGAgent(BaseAgent):
         self.gamma = self.agent_params['gamma']
         self.standardize_advantages = self.agent_params['standardize_advantages']
         self.GAE = self.agent_params['GAE'] 
+        self.Lambda = self.agent_params['Lambda']
         self.nn_baseline = self.agent_params['nn_baseline'] 
         self.reward_to_go = self.agent_params['reward_to_go'] 
 
@@ -63,17 +64,35 @@ class PGAgent(BaseAgent):
 
         # step 1: calculate q values of each (s_t, a_t) point, 
         # using rewards from that full rollout of length T: (r_0, ..., r_t, ..., r_{T-1})
-        # print(rews_list)
-        # print(len(rews_list))
-        # raise
         q_values = self.calculate_q_vals(rews_list)
-        # print(q_values)
-        # print(np.array(q_values))
-        # print(obs)
-        # print(len(obs))
-        # print(np.array(obs))
+
+        if self.GAE:
+            '''
+            param Agaes : log pi*each Agae
+            param b_n   : V(St)
+            param sum_Agae : Agae
+            '''
+            Agaes = []
+            for o, r in zip(obs, rewards):
+                ### All Agae
+                for t in range(len(r)):
+                    b_n_unnormalized = self.actor.run_baseline_prediction(o)
+                    b_n = b_n_unnormalized * np.std(q_values) + np.mean(q_values)
+                    ### summation
+                    sum_Agae = 0
+                    for t_prime in range(t, len(r)):
+                        if t_prime == len(r)-1:
+                            break
+                        discounted = np.power(self.gamma*self.Lambda, t_prime)
+                        delta = r[t_prime] \
+                                + self.gamma*b_n[t_prime+1] \
+                                + b_n[t_prime]
+                        sum_Agae += discounted * delta
+                    Agaes.append(sum_Agae)
+            advantage_values = Agaes
+        else:
         # step 2: calculate advantages that correspond to each (s_t, a_t) point
-        advantage_values = self.estimate_advantage(obs, q_values)
+            advantage_values = self.estimate_advantage(obs, q_values)
 
         # step 3:
         # TODO: pass the calculated values above into the actor/policy's update, 
@@ -124,14 +143,11 @@ class PGAgent(BaseAgent):
             Computes advantages by (possibly) subtracting a baseline from the estimated Q values
         """
 
-
-        if self.GAE:
-            pass
         # TODO: Estimate the advantage when nn_baseline is True
         # HINT1: pass obs into the neural network that you're using to learn the baseline
             # extra hint if you're stuck: see your actor's acs_labels_na
         # HINT2: advantage should be [Q-b]
-        elif self.nn_baseline:
+        if self.nn_baseline:
             b_n_unnormalized = self.actor.run_baseline_prediction(obs)
             b_n = b_n_unnormalized * np.std(q_values) + np.mean(q_values)
             adv_n = q_values - b_n
