@@ -22,7 +22,7 @@ class RL_Trainer(object):
         #############
         ## INIT
         #############
-
+        
         # Get params, create logger, create TF session
         self.params = params
         self.logger = Logger(self.params['logdir'])

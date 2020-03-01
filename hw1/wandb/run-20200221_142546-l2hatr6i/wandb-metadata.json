@@ -1,0 +1,37 @@
+{
+    "root": "/home/cilab/Desktop/homework_fall2019",
+    "program": "cs285/scripts/run_hw1_behavior_cloning.py",
+    "git": {
+        "remote": "https://github.com/roy860328/CS285_Fa19_Deep_RL_assignments.git",
+        "commit": "5c7b9bdf55280f2f736b1c7775d852fb0dda6086"
+    },
+    "email": "roy1997860328@gmail.com",
+    "startedAt": "2020-02-21T14:25:46.334076",
+    "host": "cilab-Z390-GAMING-X",
+    "username": "cilab",
+    "executable": "/home/cilab/anaconda3/envs/cs285/bin/python",
+    "os": "Linux-4.15.0-70-generic-x86_64-with-debian-stretch-sid",
+    "python": "3.6.10",
+    "gpu": "GeForce GTX 1060 6GB",
+    "gpu_count": 1,
+    "cpu_count": 8,
+    "cuda": "9.0.176",
+    "args": [
+        "--expert_policy_file",
+        "cs285/policies/experts/Ant.pkl",
+        "--env_name",
+        "Ant-v2",
+        "--exp_name",
+        "test_bc_ant",
+        "--n_iter",
+        "1",
+        "--expert_data",
+        "cs285/expert_data/expert_data_Ant-v2.pkl"
+    ],
+    "state": "failed",
+    "jobType": null,
+    "mode": "run",
+    "project": "cs285_hw5",
+    "heartbeatAt": "2020-02-21T14:25:49.478345",
+    "exitcode": 1
+}
