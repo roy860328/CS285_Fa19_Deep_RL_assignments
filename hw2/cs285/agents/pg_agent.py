@@ -15,6 +15,7 @@ class PGAgent(BaseAgent):
         self.agent_params = agent_params
         self.gamma = self.agent_params['gamma']
         self.standardize_advantages = self.agent_params['standardize_advantages']
+        self.GAE = self.agent_params['GAE'] 
         self.nn_baseline = self.agent_params['nn_baseline'] 
         self.reward_to_go = self.agent_params['reward_to_go'] 
 
@@ -123,11 +124,14 @@ class PGAgent(BaseAgent):
             Computes advantages by (possibly) subtracting a baseline from the estimated Q values
         """
 
+
+        if self.GAE:
+            pass
         # TODO: Estimate the advantage when nn_baseline is True
         # HINT1: pass obs into the neural network that you're using to learn the baseline
             # extra hint if you're stuck: see your actor's acs_labels_na
         # HINT2: advantage should be [Q-b]
-        if self.nn_baseline:
+        elif self.nn_baseline:
             b_n_unnormalized = self.actor.run_baseline_prediction(obs)
             b_n = b_n_unnormalized * np.std(q_values) + np.mean(q_values)
             adv_n = q_values - b_n

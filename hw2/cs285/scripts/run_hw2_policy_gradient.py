@@ -21,6 +21,7 @@ class PG_Trainer(object):
         estimate_advantage_args = {
             'gamma': params['discount'],
             'standardize_advantages': not(params['dont_standardize_advantages']),
+            'GAE': params['GAE'],
             'reward_to_go': params['reward_to_go'],
             'nn_baseline': params['nn_baseline'],
         }
@@ -61,6 +62,7 @@ def main():
         
     parser.add_argument('--reward_to_go', '-rtg', action='store_true')
     parser.add_argument('--nn_baseline', action='store_true')
+    parser.add_argument('--GAE', action='store_true')
     parser.add_argument('--dont_standardize_advantages', '-dsa', action='store_true')
     parser.add_argument('--batch_size', '-b', type=int, default=1000) #steps collected per train iteration
     parser.add_argument('--eval_batch_size', '-eb', type=int, default=400) #steps collected per eval iteration
