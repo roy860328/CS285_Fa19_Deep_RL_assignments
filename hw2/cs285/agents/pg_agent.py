@@ -66,40 +66,31 @@ class PGAgent(BaseAgent):
         # step 1: calculate q values of each (s_t, a_t) point, 
         # using rewards from that full rollout of length T: (r_0, ..., r_t, ..., r_{T-1})
         q_values = self.calculate_q_vals(rews_list)
+        if not self.GAE:
+            # step 1: calculate q values of each (s_t, a_t) point, 
+            # using rewards from that full rollout of length T: (r_0, ..., r_t, ..., r_{T-1})
+            q_values = self.calculate_q_vals(rews_list)
 
-        if self.GAE:
-            '''
-            param Agaes : log pi*each Agae
-            param V_St1
-            param sum_Agae : Agae
-            '''
-            Agaes = []
-            obs_index = 0
-            for r in rews_list:
-                ### All Agae
-                for t in range(len(r)):
-                    ### summation
-                    sum_Agae = 0
-                    for t_prime in range(t, len(r)):
-                        if t_prime == len(r)-1:
-                            break
-                        V_St1 = self.actor.run_baseline_prediction(obs[t_prime+obs_index+1])
-                        V_St = self.actor.run_baseline_prediction(obs[t_prime+obs_index])
-                        # print(t_prime)
-                        # print(len(r))
-                        # print(len(rews_list))
-                        # print(len(obs))
-                        discounted = np.power(self.gamma*self.Lambda, t_prime)
-                        delta = r[t_prime] \
-                                + self.gamma*V_St1 \
-                                - V_St
-                        sum_Agae += discounted * delta
-                    Agaes.append(sum_Agae)
-                obs_index += len(r)
-            advantage_values = Agaes
-        else:
-        # step 2: calculate advantages that correspond to each (s_t, a_t) point
+            # step 2: calculate advantages that correspond to each (s_t, a_t) point
             advantage_values = self.estimate_advantage(obs, q_values)
+        else:
+            rews_concat = np.concatenate(rews_list)
+            mb_advs = np.zeros_like(rews_concat)
+            mb_rets = np.zeros_like(rews_concat)
+            b_n_unnormalized = self.actor.run_baseline_prediction(obs)
+            next_b_n_unnormalized = np.concatenate([b_n_unnormalized[1:], [0]])
+            #deltas = terminals * (rews_concat - b_n_unnormalized) + (1-terminals) * (rews_concat + self.gamma * next_b_n_unnormalized - b_n_unnormalized)
+            #mb_advs = delta + (1-terminals) * self.gamma * self.
+            for t in reversed(range(rews_concat.shape[0])):
+                if terminals[t]:
+                    delta = rews_concat[t] - b_n_unnormalized[t]
+                    mb_advs[t] = delta
+                else:
+                    delta = rews_concat[t] + self.gamma * b_n_unnormalized[t+1] - b_n_unnormalized[t]
+                    mb_advs[t] = delta + self.gamma * self.Lambda * mb_advs[t+1]
+            mb_rets = mb_advs + b_n_unnormalized
+            q_values = mb_rets
+            advantage_values = mb_advs
 
         # step 3:
         # TODO: pass the calculated values above into the actor/policy's update, 
