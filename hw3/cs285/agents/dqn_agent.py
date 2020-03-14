@@ -113,16 +113,16 @@ class DQNAgent(object):
             # HINT: obs_t_ph, act_t_ph, rew_t_ph, obs_tp1_ph, done_mask_ph
             feed_dict = {
                 self.critic.learning_rate: self.optimizer_spec.lr_schedule.value(self.t),
-                TODO,
-                TODO,
-                TODO,
-                TODO,
-                TODO,
+                self.obs_t_ph: ob_no,
+                self.act_t_ph: ac_na,
+                self.rew_t_ph: re_n,
+                self.obs_tp1_ph: next_ob_no,
+                self.done_mask_ph: terminal_n,
             }
 
             # TODO: create a LIST of tensors to run in order to 
             # train the critic as well as get the resulting total_error
-            tensors_to_run = TODO
+            tensors_to_run = [self.critic.total_error, self.critic.train_fn]
             loss, _ = self.sess.run(tensors_to_run, feed_dict=feed_dict)
             # Note: remember that the critic's total_error value is what you
             # created to compute the Bellman error in a batch, 
@@ -132,7 +132,7 @@ class DQNAgent(object):
             # TODO: use sess.run to periodically update the critic's target function
             # HINT: see update_target_fn
             if self.num_param_updates % self.target_update_freq == 0:
-                TODO
+                _ = self.sess.run([self.update_target_fn])
 
             self.num_param_updates += 1
 
