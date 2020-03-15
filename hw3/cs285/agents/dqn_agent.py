@@ -49,17 +49,17 @@ class DQNAgent(object):
 
         # TODO store the latest observation into the replay buffer
         # HINT: see replay buffer's function store_frame
-        self.replay_buffer_idx = TODO
+        self.replay_buffer_idx = self.replay_buffer.next_idx
 
         eps = self.exploration.value(self.t)
         # TODO use epsilon greedy exploration when selecting action
         # HINT: take random action 
             # with probability eps (see np.random.random())
             # OR if your current step number (see self.t) is less that self.learning_starts
-        perform_random_action = TODO
+        perform_random_action = True if np.random.random()<eps else False
 
         if perform_random_action:
-            action = TODO
+            action = np.random.randint(self.num_actions)
         else:
             # TODO query the policy to select action
             # HINT: you cannot use "self.last_obs" directly as input
@@ -70,26 +70,29 @@ class DQNAgent(object):
             # that you pushed into the buffer and compute the corresponding
             # input that should be given to a Q network by appending some
             # previous frames.
-            enc_last_obs = TODO
+            enc_last_obs = self.last_obs
             enc_last_obs = enc_last_obs[None, :]
 
             # TODO query the policy with enc_last_obs to select action
-            action = TODO
+            action = self.actor.get_action(enc_last_obs)
             action = action[0]
 
         # TODO take a step in the environment using the action from the policy
         # HINT1: remember that self.last_obs must always point to the newest/latest observation
         # HINT2: remember the following useful function that you've seen before:
             #obs, reward, done, info = env.step(action)
-        TODO
+        obs, reward, done, info = self.env.step(action)
+        self.last_obs = obs
 
         # TODO store the result of taking this action into the replay buffer
         # HINT1: see replay buffer's store_effect function
         # HINT2: one of the arguments you'll need to pass in is self.replay_buffer_idx from above
-        TODO
+        self.replay_buffer.store_frame(obs)
+        self.replay_buffer.store_effect(self.replay_buffer_idx, action, reward, done)
 
         # TODO if taking this step resulted in done, reset the env (and the latest observation)
-        TODO
+        if done:
+            self.last_obs = self.env.reset()
 
     def sample(self, batch_size):
         if self.replay_buffer.can_sample(self.batch_size):

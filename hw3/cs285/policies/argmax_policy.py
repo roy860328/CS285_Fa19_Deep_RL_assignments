@@ -9,7 +9,8 @@ class ArgMaxPolicy(object):
         # TODO: Define what action this policy should return
         # HINT1: the critic's q_t_values indicate the goodness of observations, 
         # so they should be used to decide the action to perform
-        self.action = tf.argmax(TODO, axis=1)
+        
+        self.action = tf.argmax(self.sess.run([tensors_to_run], feed_dict=feed_dict), axis=1)
 
     def get_action(self, obs):
 
@@ -19,4 +20,4 @@ class ArgMaxPolicy(object):
             observation = obs
         else:
             observation = obs[None]
-        return TODO
+        return tf.argmax(self.sess.run([self.critic.q_t_values], feed_dict={self.critic.obs_t_ph:observation}), axis=1)
