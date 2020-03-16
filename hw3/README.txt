@@ -17,14 +17,14 @@ python cs285\scripts\run_hw3_dqn.py --env_name PongNoFrameskip-v4 --exp_name q1
 sometimes experience instabilities (i.e. the reward goes down after achieving
 150)
 ```
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_dqn_1 --seed 1
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_dqn_2 --seed 2
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_dqn_3 --seed 3
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_dqn_1 --seed 1
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_dqn_2 --seed 2
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_dqn_3 --seed 3
 ```
 ```
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_doubledqn_1 --double_q --seed 1
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_doubledqn_2 --double_q --seed 2
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_doubledqn_3 --double_q --seed 3
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_doubledqn_1 --double_q --seed 1
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_doubledqn_2 --double_q --seed 2
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_doubledqn_3 --double_q --seed 3
 ```
 
 ## Question 3: experimenting with hyperparameters

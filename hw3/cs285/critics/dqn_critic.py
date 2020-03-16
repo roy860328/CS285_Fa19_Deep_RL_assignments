@@ -42,7 +42,8 @@ class DQNCritic(BaseCritic):
             # In double Q-learning, the best action is selected using the Q-network that
             # is being updated, but the Q-value for this action is obtained from the
             # target Q-network. See page 5 of https://arxiv.org/pdf/1509.06461.pdf for more details.
-            TODO
+            q_tp1 = tf.argmax(self.q_t_values, axis=1)
+            q_tp1 = tf.reduce_sum(q_tp1_values * tf.one_hot(q_tp1, self.ac_dim), axis=1)
         else:
             # q values of the next timestep
             q_tp1 = tf.reduce_max(q_tp1_values, axis=1)
