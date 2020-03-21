@@ -49,14 +49,15 @@ class DQNAgent(object):
 
         # TODO store the latest observation into the replay buffer
         # HINT: see replay buffer's function store_frame
-        self.replay_buffer_idx = self.replay_buffer.next_idx
+        self.replay_buffer_idx = self.replay_buffer.store_frame(self.last_obs)
+        print(self.replay_buffer_idx)
 
         eps = self.exploration.value(self.t)
         # TODO use epsilon greedy exploration when selecting action
         # HINT: take random action 
             # with probability eps (see np.random.random())
             # OR if your current step number (see self.t) is less that self.learning_starts
-        perform_random_action = True if np.random.random()<eps else False
+        perform_random_action = True if np.random.random()<eps or self.t<self.learning_starts else False
 
         if perform_random_action:
             action = np.random.randint(self.num_actions)
@@ -70,7 +71,7 @@ class DQNAgent(object):
             # that you pushed into the buffer and compute the corresponding
             # input that should be given to a Q network by appending some
             # previous frames.
-            enc_last_obs = self.last_obs
+            enc_last_obs = self.replay_buffer.encode_recent_observation()
             enc_last_obs = enc_last_obs[None, :]
 
             # TODO query the policy with enc_last_obs to select action
@@ -87,7 +88,7 @@ class DQNAgent(object):
         # TODO store the result of taking this action into the replay buffer
         # HINT1: see replay buffer's store_effect function
         # HINT2: one of the arguments you'll need to pass in is self.replay_buffer_idx from above
-        self.replay_buffer.store_frame(obs)
+        
         self.replay_buffer.store_effect(self.replay_buffer_idx, action, reward, done)
 
         # TODO if taking this step resulted in done, reset the env (and the latest observation)
@@ -116,11 +117,11 @@ class DQNAgent(object):
             # HINT: obs_t_ph, act_t_ph, rew_t_ph, obs_tp1_ph, done_mask_ph
             feed_dict = {
                 self.critic.learning_rate: self.optimizer_spec.lr_schedule.value(self.t),
-                self.obs_t_ph: ob_no,
-                self.act_t_ph: ac_na,
-                self.rew_t_ph: re_n,
-                self.obs_tp1_ph: next_ob_no,
-                self.done_mask_ph: terminal_n,
+                self.critic.obs_t_ph: ob_no,
+                self.critic.act_t_ph: ac_na,
+                self.critic.rew_t_ph: re_n,
+                self.critic.obs_tp1_ph: next_ob_no,
+                self.critic.done_mask_ph: terminal_n,
             }
 
             # TODO: create a LIST of tensors to run in order to 
@@ -135,7 +136,7 @@ class DQNAgent(object):
             # TODO: use sess.run to periodically update the critic's target function
             # HINT: see update_target_fn
             if self.num_param_updates % self.target_update_freq == 0:
-                _ = self.sess.run([self.update_target_fn])
+                _ = self.sess.run([self.critic.update_target_fn])
 
             self.num_param_updates += 1
 

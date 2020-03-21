@@ -42,7 +42,8 @@ class DQNCritic(BaseCritic):
             # In double Q-learning, the best action is selected using the Q-network that
             # is being updated, but the Q-value for this action is obtained from the
             # target Q-network. See page 5 of https://arxiv.org/pdf/1509.06461.pdf for more details.
-            TODO
+            q_tp1 = tf.argmax(self.q_t_values, axis=1)
+            q_tp1 = tf.reduce_sum(q_tp1_values * tf.one_hot(q_tp1, self.ac_dim), axis=1)
         else:
             # q values of the next timestep
             q_tp1 = tf.reduce_max(q_tp1_values, axis=1)
@@ -62,16 +63,15 @@ class DQNCritic(BaseCritic):
         # TODO compute the Bellman error (i.e. TD error between q_t and target_q_t)
         # Note that this scalar-valued tensor later gets passed into the optimizer, to be minimized
         # HINT: use reduce mean of huber_loss (from infrastructure/dqn_utils.py) instead of squared error
-        self.total_error= huber_loss(self.q_t - target_q_t)
-
+        self.total_error = tf.reduce_sum(huber_loss(self.q_t - target_q_t))
         #####################
 
         # TODO these variables should all of the 
         # variables of the Q-function network and target network, respectively
         # HINT1: see the "scope" under which the variables were constructed in the lines at the top of this function
         # HINT2: use tf.get_collection to look for all variables under a certain scope
-        q_func_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, self.q_t_values)
-        target_q_func_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, q_tp1_values)
+        q_func_vars = tf.trainable_variables(scope='q_func')
+        target_q_func_vars = tf.trainable_variables(scope='target_q_func')
 
         #####################
 
