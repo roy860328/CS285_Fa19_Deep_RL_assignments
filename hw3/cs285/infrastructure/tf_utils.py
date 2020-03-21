@@ -11,7 +11,7 @@ def build_mlp(input_placeholder, output_size, scope, n_layers, size, activation=
     with tf.variable_scope(scope):
         for _ in range(n_layers):
             output_placeholder = tf.layers.dense(output_placeholder, size, activation=activation)
-        output_placeholder = tf.layers.dense(output_placeholder, output_size, activation=activation)
+        output_placeholder = tf.layers.dense(output_placeholder, output_size, activation=output_activation)
     return output_placeholder
 
 ############################################
