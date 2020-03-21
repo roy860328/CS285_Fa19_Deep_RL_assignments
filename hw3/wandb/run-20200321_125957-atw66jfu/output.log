@@ -1,0 +1,23 @@
+/home/cilab/anaconda3/envs/cs285/lib/python3.6/site-packages/wandb/__init__.py:1082: ResourceWarning: unclosed file <_io.BufferedWriter name=6>
+  _init_headless(run)
+/home/cilab/anaconda3/envs/cs285/lib/python3.6/site-packages/wandb/__init__.py:1082: ResourceWarning: unclosed file <_io.BufferedWriter name=8>
+  _init_headless(run)
+/home/cilab/anaconda3/envs/cs285/lib/python3.6/site-packages/wandb/wandb_config.py:152: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/cilab/Desktop/homework_fall2019/hw3/wandb/run-20200321_125957-atw66jfu/config.yaml' mode='r' encoding='UTF-8'>
+  self._load_file(path)
+WARNING:tensorflow:From /home/cilab/Desktop/homework_fall2019/hw3/cs285/policies/MLP_policy.py:39: all_variables (from tensorflow.python.ops.variables) is deprecated and will be removed after 2017-03-02.
+Instructions for updating:
+Please use tf.global_variables instead.
+
+Collecting data to be used for training...
+Traceback (most recent call last):
+  File "cs285/scripts/run_hw3_actor_critic.py", line 134, in <module>
+    main()
+  File "cs285/scripts/run_hw3_actor_critic.py", line 130, in main
+    trainer.run_training_loop()
+  File "cs285/scripts/run_hw3_actor_critic.py", line 56, in run_training_loop
+    eval_policy = self.rl_trainer.agent.actor,
+  File "/home/cilab/Desktop/homework_fall2019/hw3/cs285/infrastructure/rl_trainer.py", line 142, in run_training_loop
+    loss = self.train_agent()
+  File "/home/cilab/Desktop/homework_fall2019/hw3/cs285/infrastructure/rl_trainer.py", line 214, in train_agent
+    return loss
+UnboundLocalError: local variable 'loss' referenced before assignment

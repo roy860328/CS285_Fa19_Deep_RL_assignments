@@ -52,7 +52,7 @@ class BootstrappedContinuousCritic(BaseCritic):
         # TODO: set up the critic loss
         # HINT1: the critic_prediction should regress onto the targets placeholder (sy_target_n)
         # HINT2: use tf.losses.mean_squared_error
-        self.critic_loss = tf.losses.mean_squared_error(self.critic_prediction, self.sy_target_n)
+        self.critic_loss = tf.losses.mean_squared_error(self.sy_target_n, self.critic_prediction)
 
         # TODO: use the AdamOptimizer to optimize the loss defined above
         self.critic_update_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.critic_loss)
@@ -118,7 +118,7 @@ class BootstrappedContinuousCritic(BaseCritic):
                     #b) sy_target_n with target values calculated above
         for itr in range(self.num_grad_steps_per_target_update*self.num_target_updates):
             if itr%self.num_grad_steps_per_target_update == 0:
-                print(self.forward(next_ob_no))
+                # print(self.forward(next_ob_no))
                 sy_target_n = re_n + self.gamma * self.forward(next_ob_no) * (1-terminal_n)
             loss, _ = self.sess.run([self.critic_loss, self.critic_update_op], feed_dict={self.sy_ob_no: ob_no, 
                                                                                           self.sy_target_n:sy_target_n,

@@ -1,0 +1,18 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.8.25
+    framework: tensorflow
+    is_jupyter_run: false
+    python_version: 3.6.10
+ac_dim:
+  desc: null
+  value: 2
+env_name:
+  desc: null
+  value: CartPole-v0
+ob_dim:
+  desc: null
+  value: 4

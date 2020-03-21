@@ -1,0 +1,539 @@
+diff --git a/hw3/cs285/agents/ac_agent.py b/hw3/cs285/agents/ac_agent.py
+index d9c80c8..23dfdae 100644
+--- a/hw3/cs285/agents/ac_agent.py
++++ b/hw3/cs285/agents/ac_agent.py
+@@ -41,7 +41,7 @@ class ACAgent(BaseAgent):
+             # HINT: Remember to cut off the V(s') term (ie set it to 0) at terminal states (ie terminal_n=1)
+             # 4) calculate advantage (adv_n) as A(s, a) = Q(s, a) - V(s)
+         
+-        adv_n = re_n + self.gamma * self.critic.forward(next_ob_no) * (1-terminal_n) - self.critic.forward(ob_no)
++        adv_n = re_n + self.gamma* self.critic.forward(next_ob_no) * (1-terminal_n) - self.critic.forward(ob_no)
+ 
+         if self.standardize_advantages:
+             adv_n = (adv_n - np.mean(adv_n)) / (np.std(adv_n) + 1e-8)
+@@ -57,23 +57,23 @@ class ACAgent(BaseAgent):
+ 
+             # for agent_params['num_actor_updates_per_agent_update'] steps,
+             #     update the actor
+-        Critic_Loss = 0
+-        for i in range(self.agent_params['num_critic_updates_per_agent_update']):
+-            Critic_Loss += self.critic.update(ob_no, next_ob_no, re_n, terminal_n)
+-
+-        Actor_Loss = 0
++        
++        for steps in range(self.agent_params['num_critic_updates_per_agent_update']):
++            critic_loss = self.critic.update(ob_no, next_ob_no, re_n, terminal_n)
++        
+         advantage = self.estimate_advantage(ob_no, next_ob_no, re_n, terminal_n)
+-        for i in range(self.agent_params['num_critic_updates_per_agent_update']):
+-            Actor_Loss += self.actor.update(ob_no, ac_na, advantage)
+ 
+-        loss = OrderedDict()
+-        loss['Critic_Loss'] = np.array(Critic_Loss)  # put final critic loss here
+-        loss['Actor_Loss'] = np.array(Actor_Loss)  # put final actor loss here
++        for steps in range(self.agent_params['num_actor_updates_per_agent_update']):
++            actor_loss = self.actor.update(ob_no, ac_na, advantage)
++
+ 
++        loss = OrderedDict()
++        loss['Critic_Loss'] = critic_loss  # put final critic loss here
++        loss['Actor_Loss'] = actor_loss  # put final actor loss here
+         return loss
+ 
+     def add_to_replay_buffer(self, paths):
+         self.replay_buffer.add_rollouts(paths)
+ 
+     def sample(self, batch_size):
+-        return self.replay_buffer.sample_recent_data(batch_size)
++        return self.replay_buffer.sample_recent_data(batch_size)
+\ No newline at end of file
+diff --git a/hw3/cs285/critics/bootstrapped_continuous_critic.py b/hw3/cs285/critics/bootstrapped_continuous_critic.py
+index 6d64fbe..001dda9 100644
+--- a/hw3/cs285/critics/bootstrapped_continuous_critic.py
++++ b/hw3/cs285/critics/bootstrapped_continuous_critic.py
+@@ -20,20 +20,16 @@ class BootstrappedContinuousCritic(BaseCritic):
+     def _build(self):
+         """
+             Notes on notation:
+-
+             Symbolic variables have the prefix sy_, to distinguish them from the numerical values
+             that are computed later in the function
+-
+             Prefixes and suffixes:
+             ob - observation 
+             ac - action
+             _no - this tensor should have shape (batch self.size /n/, observation dim)
+             _na - this tensor should have shape (batch self.size /n/, action dim)
+             _n  - this tensor should have shape (batch self.size /n/)
+-
+             Note: batch self.size /n/ is defined at runtime, and until then, the shape for that axis
+             is None
+-
+             ----------------------------------------------------------------------------------
+             loss: a function of self.sy_ob_no, self.sy_ac_na and self.sy_adv_n that we will differentiate
+                 to get the policy gradient.
+@@ -52,17 +48,16 @@ class BootstrappedContinuousCritic(BaseCritic):
+         # TODO: set up the critic loss
+         # HINT1: the critic_prediction should regress onto the targets placeholder (sy_target_n)
+         # HINT2: use tf.losses.mean_squared_error
+-        self.critic_loss = tf.losses.mean_squared_error(self.critic_prediction, self.sy_target_n)
++        self.critic_loss = tf.losses.mean_squared_error(self.sy_target_n, self.critic_prediction)
+ 
+         # TODO: use the AdamOptimizer to optimize the loss defined above
+-        self.critic_update_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.critic_loss)
++        self.critic_update_op = tf.train.AdamOptimizer(learning_rate= self.learning_rate).minimize(self.critic_loss)
+ 
+     def define_placeholders(self):
+         """
+             Placeholders for batch batch observations / actions / advantages in actor critic
+             loss function.
+             See Agent.build_computation_graph for notation
+-
+             returns:
+                 sy_ob_no: placeholder for observations
+                 sy_ac_na: placeholder for actions
+@@ -79,15 +74,13 @@ class BootstrappedContinuousCritic(BaseCritic):
+     def forward(self, ob):
+         # TODO: run your critic
+         # HINT: there's a neural network structure defined above with mlp layers, which serves as your 'critic'
+-        return self.sess.run([self.critic_prediction], feed_dict={self.sy_ob_no: ob})[0]
++        return self.sess.run(self.critic_prediction, feed_dict={self.sy_ob_no: ob})
+ 
+     def update(self, ob_no, next_ob_no, re_n, terminal_n):
+         """
+             Update the parameters of the critic.
+-
+             let sum_of_path_lengths be the sum of the lengths of the sampled paths
+             let num_paths be the number of sampled paths
+-
+             arguments:
+                 ob_no: shape: (sum_of_path_lengths, ob_dim)
+                 next_ob_no: shape: (sum_of_path_lengths, ob_dim). The observation after taking one step forward
+@@ -95,7 +88,6 @@ class BootstrappedContinuousCritic(BaseCritic):
+                     the reward for each timestep
+                 terminal_n: length: sum_of_path_lengths. Each element in terminal_n is either 1 if the episode ended
+                     at that timestep of 0 if the episode did not end
+-
+             returns:
+                 loss
+         """
+@@ -116,12 +108,12 @@ class BootstrappedContinuousCritic(BaseCritic):
+                 # HINT2: need to populate the following (in the feed_dict): 
+                     #a) sy_ob_no with ob_no
+                     #b) sy_target_n with target values calculated above
+-        for itr in range(self.num_grad_steps_per_target_update*self.num_target_updates):
+-            if itr%self.num_grad_steps_per_target_update == 0:
+-                print(self.forward(next_ob_no))
+-                sy_target_n = re_n + self.gamma * self.forward(next_ob_no) * (1-terminal_n)
+-            loss, _ = self.sess.run([self.critic_loss, self.critic_update_op], feed_dict={self.sy_ob_no: ob_no, 
+-                                                                                          self.sy_target_n:sy_target_n,
+-                                                                                          })
+ 
+-        return loss
++        target_n = re_n + self.gamma*self.forward(next_ob_no)*(1-terminal_n)
++
++        for itr in range(self.num_grad_steps_per_target_update * self.num_target_updates):
++            if itr % self.num_grad_steps_per_target_update is 0:
++                target_n = re_n + self.gamma*self.forward(next_ob_no)*(1-terminal_n)
++            loss, _ = self.sess.run([self.critic_loss, self.critic_update_op], feed_dict={self.sy_ob_no: ob_no, self.sy_target_n: target_n})
++
++        return loss
+\ No newline at end of file
+diff --git a/hw3/cs285/infrastructure/rl_trainer.py b/hw3/cs285/infrastructure/rl_trainer.py
+index c7e48db..3277e0b 100644
+--- a/hw3/cs285/infrastructure/rl_trainer.py
++++ b/hw3/cs285/infrastructure/rl_trainer.py
+@@ -11,11 +11,11 @@ from gym import wrappers
+ 
+ from cs285.infrastructure.utils import *
+ from cs285.infrastructure.tf_utils import create_tf_session
+-from cs285.infrastructure.logger import Logger
+ 
+ from cs285.agents.dqn_agent import DQNAgent
+ from cs285.infrastructure.dqn_utils import get_wrapper_by_name
+ 
++import wandb
+ # how many rollouts to save as videos to tensorboard
+ MAX_NVIDEO = 2
+ MAX_VIDEO_LEN = 40 # we overwrite this in the code below
+@@ -31,7 +31,6 @@ class RL_Trainer(object):
+ 
+         # Get params, create logger, create TF session
+         self.params = params
+-        self.logger = Logger(self.params['logdir'])
+         self.sess = create_tf_session(self.params['use_gpu'], which_gpu=self.params['which_gpu'])
+ 
+         # Set random seeds
+@@ -47,7 +46,7 @@ class RL_Trainer(object):
+         self.env = gym.make(self.params['env_name'])
+         if 'env_wrappers' in self.params:
+             # These operations are currently only for Atari envs
+-            self.env = wrappers.Monitor(self.env, os.path.join(self.params['logdir'], "gym"), force=True)
++            self.env = wrappers.Monitor(self.env, os.path.join(self.params['logdir'], "gym"), force=True) # Delete video_callalbe=False to render while training
+             self.env = params['env_wrappers'](self.env)
+             self.mean_episode_reward = -float('nan')
+             self.best_mean_episode_reward = -float('inf')
+@@ -55,7 +54,6 @@ class RL_Trainer(object):
+ 
+         # Maximum length for episodes
+         self.params['ep_len'] = self.params['ep_len'] or self.env.spec.max_episode_steps
+-        MAX_VIDEO_LEN = self.params['ep_len']
+ 
+         # Is this env continuous, or self.discrete?
+         discrete = isinstance(self.env.action_space, gym.spaces.Discrete)
+@@ -71,14 +69,17 @@ class RL_Trainer(object):
+         self.params['agent_params']['ac_dim'] = ac_dim
+         self.params['agent_params']['ob_dim'] = ob_dim
+ 
+-        # simulation timestep, will be used for video saving
+-        if 'model' in dir(self.env):
+-            self.fps = 1/self.env.model.opt.timestep
+-        elif 'env_wrappers' in self.params:
+-            self.fps = 30 # This is not actually used when using the Monitor wrapper
+-        else:
+-            self.fps = self.env.env.metadata['video.frames_per_second']
++        print("******************************************************************")
++        print("Action Dimension: ", self.params['agent_params']['ac_dim'])
++        print("Observation Dimension: ", self.params['agent_params']['ob_dim'])
++        print("******************************************************************")
+ 
++        if self.params['use_wandb'] == 1:
++            wandb.init(project="cs285_hw3", tensorboard=False)
++            wandb.config.env_name = self.params['env_name']
++            wandb.config.ac_dim = self.params['agent_params']['ac_dim']
++            wandb.config.ob_dim = self.params['agent_params']['ob_dim']
++            
+ 
+         #############
+         ## AGENT
+@@ -93,7 +94,6 @@ class RL_Trainer(object):
+ 
+         tf.global_variables_initializer().run(session=self.sess)
+ 
+-
+     def run_training_loop(self, n_iter, collect_policy, eval_policy,
+                           initial_expertdata=None, relabel_with_expert=False,
+                           start_relabel_with_expert=1, expert_policy=None):
+@@ -112,18 +112,9 @@ class RL_Trainer(object):
+         self.start_time = time.time()
+ 
+         for itr in range(n_iter):
+-            print("\n\n********** Iteration %i ************"%itr)
+-
+-            # decide if videos should be rendered/logged at this iteration
+-            if itr % self.params['video_log_freq'] == 0 and self.params['video_log_freq'] != -1:
+-                self.logvideo = True
+-            else:
+-                self.logvideo = False
+ 
+             # decide if metrics should be logged
+-            if self.params['scalar_log_freq'] == -1:
+-                self.logmetrics = False
+-            elif itr % self.params['scalar_log_freq'] == 0:
++            if itr % self.params['scalar_log_freq'] == 0:
+                 self.logmetrics = True
+             else:
+                 self.logmetrics = False
+@@ -131,7 +122,7 @@ class RL_Trainer(object):
+             # collect trajectories, to be used for training
+             if isinstance(self.agent, DQNAgent):
+                 # only perform an env step and add to replay buffer for DQN
+-                self.agent.step_env()
++                self.agent.step_env(render=False)
+                 envsteps_this_batch = 1
+                 train_video_paths = None
+                 paths = None
+@@ -149,9 +140,10 @@ class RL_Trainer(object):
+ 
+             # train agent (using sampled data from replay buffer)
+             loss = self.train_agent()
+-
+             # log/save
+-            if self.logvideo or self.logmetrics:
++            if self.logmetrics:
++            #if self.logmetrics and itr%100 == 0:
++                print("Iteration ",itr)
+                 # perform logging
+                 print('\nBeginning logging procedure...')
+                 if isinstance(self.agent, DQNAgent):
+@@ -165,13 +157,31 @@ class RL_Trainer(object):
+                     print('\nSaving agent\'s actor...')
+                     self.agent.actor.save(self.params['logdir'] + '/policy_itr_'+str(itr))
+                     self.agent.critic.save(self.params['logdir'] + '/critic_itr_'+str(itr))
++            
+ 
+     ####################################
+     ####################################
+-
+     def collect_training_trajectories(self, itr, load_initial_expertdata, collect_policy, batch_size):
+-        # TODO: GETTHIS from HW1
+-        if itr == 0 and load_initial_expertdata:
++        """
++        :param itr:
++        :param load_initial_expertdata:  path to expert data pkl file
++        :param collect_policy:  the current policy using which we collect data
++        :param batch_size:  the number of transitions we collect
++        :return:
++            paths: a list trajectories
++            envsteps_this_batch: the sum over the numbers of environment steps in paths
++            train_video_paths: paths which also contain videos for visualization purposes
++        """
++
++        # TODO decide whether to load training data or use
++        # HINT: depending on if it's the first iteration or not,
++            # decide whether to either
++                # load the data. In this case you can directly return as follows
++                # ``` return loaded_paths, 0, None ```
++
++                # collect data, batch_size is the number of transitions you want to collect.
++        if itr==0 and load_initial_expertdata:
++            print(load_initial_expertdata)
+             with open(load_initial_expertdata, "rb") as f:
+                 loaded_paths = pickle.load(f)
+             return loaded_paths, 0, None
+@@ -179,21 +189,17 @@ class RL_Trainer(object):
+         # HINT1: use sample_trajectories from utils
+         # HINT2: you want each of these collected rollouts to be of length self.params['ep_len']
+         print("\nCollecting data to be used for training...")
+-        paths, envsteps_this_batch = sample_trajectories(self.env, collect_policy, batch_size, self.params['ep_len'], render=False)
++        paths, envsteps_this_batch = sample_trajectories(self.env, collect_policy, batch_size, self.params['ep_len'])
+ 
+         # collect more rollouts with the same policy, to be saved as videos in tensorboard
+         # note: here, we collect MAX_NVIDEO rollouts, each of length MAX_VIDEO_LEN
+         train_video_paths = None
+-        if self.logvideo:
+-            print('\nCollecting train rollouts to be used for saving videos...')
+-            ## TODO look in utils and implement sample_n_trajectories
+-            train_video_paths = sample_n_trajectories(self.env, collect_policy, MAX_NVIDEO, MAX_VIDEO_LEN, True)
+ 
+         return paths, envsteps_this_batch, train_video_paths
+ 
+-
+     def train_agent(self):
+-        print('\nTraining agent using sampled data from replay buffer...')
++        # TODO: GETTHIS from HW1
++        #print('\nTraining agent using sampled data from replay buffer...')
+         for train_step in range(self.params['num_agent_train_steps_per_iter']):
+ 
+             # TODO sample some data from the data buffer
+@@ -206,7 +212,9 @@ class RL_Trainer(object):
+             # HINT: print or plot the loss for debugging!
+             loss = self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
+         return loss
++        
+     def do_relabel_with_expert(self, expert_policy, paths):
++        # TODO: GETTHIS from HW1 (although you don't actually need it for this homework)
+         print("\nRelabelling collected observations with labels from an expert policy...")
+ 
+         # TODO relabel collected obsevations (from our policy) with labels from an expert policy
+@@ -241,14 +249,12 @@ class RL_Trainer(object):
+             print("running time %f" % time_since_start)
+             logs["TimeSinceStart"] = time_since_start
+ 
+-        sys.stdout.flush()
++        if self.params['use_wandb'] == 1:
++            wandb.log(logs)
+ 
+-        for key, value in logs.items():
+-            print('{} : {}'.format(key, value))
+-            self.logger.log_scalar(value, key, self.agent.t)
+         print('Done logging...\n\n')
++        print(logs)
+ 
+-        self.logger.flush()
+ 
+     def perform_logging(self, itr, paths, eval_policy, train_video_paths, loss):
+ 
+@@ -256,18 +262,6 @@ class RL_Trainer(object):
+         print("\nCollecting data for eval...")
+         eval_paths, eval_envsteps_this_batch = sample_trajectories(self.env, eval_policy, self.params['eval_batch_size'], self.params['ep_len'])
+ 
+-        # save eval rollouts as videos in tensorboard event file
+-        if self.logvideo and train_video_paths != None:
+-            print('\nCollecting video rollouts eval')
+-            eval_video_paths = sample_n_trajectories(self.env, eval_policy, MAX_NVIDEO, MAX_VIDEO_LEN, True)
+-
+-            #save train/eval videos
+-            print('\nSaving train rollouts as videos...')
+-            self.logger.log_paths_as_videos(train_video_paths, itr, fps=self.fps, max_videos_to_save=MAX_NVIDEO,
+-                                            video_title='train_rollouts')
+-            self.logger.log_paths_as_videos(eval_video_paths, itr, fps=self.fps,max_videos_to_save=MAX_NVIDEO,
+-                                             video_title='eval_rollouts')
+-
+         # save eval metrics
+         if self.logmetrics:
+             # returns, for logging
+@@ -294,7 +288,6 @@ class RL_Trainer(object):
+ 
+             logs["Train_EnvstepsSoFar"] = self.total_envsteps
+             logs["TimeSinceStart"] = time.time() - self.start_time
+-            print(loss)
+             if isinstance(loss, dict):
+                 logs.update(loss)
+             else:
+@@ -304,10 +297,32 @@ class RL_Trainer(object):
+                 self.initial_return = np.mean(train_returns)
+             logs["Initial_DataCollection_AverageReturn"] = self.initial_return
+ 
+-            # perform the logging
+-            for key, value in logs.items():
+-                print('{} : {}'.format(key, value))
+-                self.logger.log_scalar(value, key, itr)
+-            print('Done logging...\n\n')
++            if self.params['use_wandb'] == 1:
++                wandb.log(logs)
+ 
+-            self.logger.flush()
++            print("Eval Average Return: ", logs["Eval_AverageReturn"])
++
++    def eval_render(self):
++        print("Max Episode Length: ", self.params['ep_len'])
++        if isinstance(self.agent, DQNAgent):
++            import time
++            fps = 20
++            while True:
++                self.agent.step_env(render=True)
++                time.sleep(1/fps)
++        else:
++            env = gym.make(self.params['env_name'])
++            seed = self.params['seed']
++            np.random.seed(seed)
++            env.seed(seed)
++            ob = env.reset() # HINT: should be the output of resetting the env
++            step = 0
++            print("Max Episode Length: ", self.params['ep_len'])
++            while True:
++                ac = self.agent.actor.get_action(ob) # HINT: query the policy's get_action function
++                ob, rew, done, _ = env.step(ac[0])
++                env.render()
++                step += 1
++                if done or (step > self.params['ep_len']):
++                    step = 0
++                    ob = env.reset() # HINT: should be the output of resetting the env
+\ No newline at end of file
+diff --git a/hw3/cs285/policies/MLP_policy.py b/hw3/cs285/policies/MLP_policy.py
+index 4ed552f..31dbdf4 100644
+--- a/hw3/cs285/policies/MLP_policy.py
++++ b/hw3/cs285/policies/MLP_policy.py
+@@ -107,6 +107,7 @@ class MLPPolicy(BasePolicy):
+     # query the neural net that's our 'policy' function, as defined by an mlp above
+     # query the policy with observation(s) to get selected action(s)
+     def get_action(self, obs):
++        # TODO: GETTHIS from HW1
+         if len(obs.shape)>1:
+             observation = obs
+         else:
+@@ -116,7 +117,7 @@ class MLPPolicy(BasePolicy):
+         # HINT1: you will need to call self.sess.run
+         # HINT2: the tensor we're interested in evaluating is self.sample_ac
+         # HINT3: in order to run self.sample_ac, it will need observation fed into the feed_dict
+-        return self.sess.run([self.sample_ac], feed_dict={self.observations_pl: observation})[0]
++        return self.sess.run(self.sample_ac, feed_dict = {self.observations_pl: observation})
+ 
+ #####################################################
+ #####################################################
+@@ -128,7 +129,6 @@ class MLPPolicy(BasePolicy):
+ #####################################################
+ #####################################################
+ 
+-
+ class MLPPolicyPG(MLPPolicy):
+ 
+     def define_placeholders(self):
+@@ -166,7 +166,11 @@ class MLPPolicyPG(MLPPolicy):
+             # to get [Q_t - b_t]
+         # HINT4: don't forget that we need to MINIMIZE this self.loss
+             # but the equation above is something that should be maximized
+-        self.loss = tf.reduce_sum(-self.logprob_n*self.adv_n)
++
++        # CS285 Lecture 5 Policy Gradient with automatic differentiation 참고
++        negative_likelihood = -self.logprob_n
++        weighted_negative_likelihood = tf.multiply(negative_likelihood, self.adv_n)
++        self.loss = tf.reduce_sum(weighted_negative_likelihood)
+ 
+         # TODO: define what exactly the optimizer should minimize when updating the policy
+         self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
+@@ -177,6 +181,7 @@ class MLPPolicyPG(MLPPolicy):
+             # HINT2: we want predictions (self.baseline_prediction) to be as close as possible to the labels (self.targets_n)
+                 # see 'update' function below if you don't understand what's inside self.targets_n
+             self.baseline_loss = tf.losses.mean_squared_error(self.targets_n, self.baseline_prediction)
++
+             # TODO: define what exactly the optimizer should minimize when updating the baseline
+             self.baseline_update_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.baseline_loss)
+ 
+@@ -188,12 +193,7 @@ class MLPPolicyPG(MLPPolicy):
+         # HINT1: query it with observation(s) to get the baseline value(s)
+         # HINT2: see build_baseline_forward_pass (above) to see the tensor that we're interested in
+         # HINT3: this will be very similar to how you implemented get_action (above)
+-        if len(obs.shape)>1:
+-            observation = obs
+-        else:
+-            observation = obs[None]
+-
+-        return self.sess.run([self.baseline_prediction], feed_dict={self.observations_pl: observation})[0]
++        return self.sess.run(self.baseline_prediction, feed_dict={self.observations_pl: obs})
+ 
+     def update(self, observations, acs_na, adv_n=None, acs_labels_na=None, qvals=None):
+         assert(self.training, 'Policy must be created with training=True in order to perform training updates...')
+@@ -201,21 +201,20 @@ class MLPPolicyPG(MLPPolicy):
+         _, loss = self.sess.run([self.train_op, self.loss], feed_dict={self.observations_pl: observations, self.actions_pl: acs_na, self.adv_n: adv_n})
+ 
+         if self.nn_baseline:
+-            if self.GAE:
+-                targets_n = qvals
+-            else:
+-                targets_n = (qvals - np.mean(qvals))/(np.std(qvals)+1e-8)
++            targets_n = (qvals - np.mean(qvals))/(np.std(qvals)+1e-8)
+             # TODO: update the nn baseline with the targets_n
+             # HINT1: run an op that you built in define_train_op
+-            _, _, loss = self.sess.run([self.baseline_prediction, self.baseline_update_op, self.baseline_loss], feed_dict={self.observations_pl: observations, self.targets_n: targets_n})
++            self.sess.run(self.baseline_update_op, feed_dict={self.targets_n: targets_n, self.observations_pl:observations})
+         return loss
+ 
+ #####################################################
+ #####################################################
+ 
++#####################################################
++#####################################################
++
+ class MLPPolicyAC(MLPPolicyPG):
+     """ MLP policy required for actor-critic.
+-
+     Note: Your code for this class could in fact the same as MLPPolicyPG, except the neural net baseline
+     would not be required (i.e. self.nn_baseline would always be false. It is separated here only
+     to avoid any unintended errors. 
+@@ -223,4 +222,4 @@ class MLPPolicyAC(MLPPolicyPG):
+     def __init__(self, *args, **kwargs):
+         if 'nn_baseline' in kwargs.keys():
+             assert kwargs['nn_baseline'] == False, "MLPPolicyAC should not use the nn_baseline flag"
+-        super().__init__(*args, **kwargs)
++        super().__init__(*args, **kwargs)
+\ No newline at end of file
+diff --git a/hw3/cs285/scripts/run_hw3_actor_critic.py b/hw3/cs285/scripts/run_hw3_actor_critic.py
+index b67a993..75155e4 100644
+--- a/hw3/cs285/scripts/run_hw3_actor_critic.py
++++ b/hw3/cs285/scripts/run_hw3_actor_critic.py
+@@ -55,6 +55,7 @@ class AC_Trainer(object):
+             collect_policy = self.rl_trainer.agent.actor,
+             eval_policy = self.rl_trainer.agent.actor,
+             )
++        self.rl_trainer.eval_render()
+ 
+ 
+ def main():
+@@ -90,6 +91,8 @@ def main():
+ 
+     parser.add_argument('--save_params', action='store_true')
+ 
++    parser.add_argument('--use_wandb', type=int, default=1)
++
+     args = parser.parse_args() 
+ 
+     # convert to dictionary
+@@ -128,4 +131,4 @@ def main():
+ 
+ 
+ if __name__ == "__main__":
+-    main()
++    main()
+\ No newline at end of file
