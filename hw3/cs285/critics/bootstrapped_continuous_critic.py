@@ -123,5 +123,4 @@ class BootstrappedContinuousCritic(BaseCritic):
             loss, _ = self.sess.run([self.critic_loss, self.critic_update_op], feed_dict={self.sy_ob_no: ob_no, 
                                                                                           self.sy_target_n:sy_target_n,
                                                                                           })
-
         return loss
