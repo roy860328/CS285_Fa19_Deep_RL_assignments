@@ -17,17 +17,18 @@ python cs285\scripts\run_hw3_dqn.py --env_name PongNoFrameskip-v4 --exp_name q1
 sometimes experience instabilities (i.e. the reward goes down after achieving
 150)
 ```
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_dqn_1 --seed 1
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_dqn_2 --seed 2
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_dqn_3 --seed 3
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_dqn_1 --seed 1
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_dqn_2 --seed 2
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_dqn_3 --seed 3
 ```
 ```
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_doubledqn_1 --double_q --seed 1
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_doubledqn_2 --double_q --seed 2
-python run_hw3_dqn_atari.py --env_name LunarLander-v2 --exp_name q2_doubledqn_3 --double_q --seed 3
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_doubledqn_1 --double_q --seed 1
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_doubledqn_2 --double_q --seed 2
+python run_hw3_dqn.py --env_name LunarLander-v2 --exp_name q2_doubledqn_3 --double_q --seed 3
 ```
 
 ## Question 3: experimenting with hyperparameters
+
 Examples include: learning rates, neural network architecture, exploration schedule or exploration rule (e.g. you
 may implement an alternative to e-greedy), etc.
 
@@ -43,6 +44,12 @@ python run_hw3_dqn.py --env_name PongNoFrameskip-v4 --exp_name q3_hparam3
 # Part 2: Actor-Critic
 
 ## Question 4: Sanity check with Cartpole 
+we will use the same value function network from hw2 as the basis for our critic network.
+Actor-critic is updating the critic network itself.
+Minimization everytime we update our police, this operation can be costly.
+Since our target values are based on the old value function, we may need to recompute the targets with the updated value function
+	Update targets with current value function
+	Regress onto targets to update value function by taking a few gradient steps
 ```
 python run_hw3_actor_critic.py --env_name CartPole-v0 -n 100 -b 1000 --exp_name 1_1 -ntu 1 -ngsptu 1
 python run_hw3_actor_critic.py --env_name CartPole-v0 -n 100 -b 1000 --exp_name 100_1 -ntu 100 -ngsptu 1
