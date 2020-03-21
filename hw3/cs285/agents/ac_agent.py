@@ -58,17 +58,18 @@ class ACAgent(BaseAgent):
             # for agent_params['num_actor_updates_per_agent_update'] steps,
             #     update the actor
         Critic_Loss = 0
-        for i in agent_params['num_critic_updates_per_agent_update']:
+        for i in range(self.agent_params['num_critic_updates_per_agent_update']):
             Critic_Loss += self.critic.update(ob_no, next_ob_no, re_n, terminal_n)
 
         Actor_Loss = 0
         advantage = self.estimate_advantage(ob_no, next_ob_no, re_n, terminal_n)
-        for i in agent_params['num_critic_updates_per_agent_update']:
+        for i in range(self.agent_params['num_critic_updates_per_agent_update']):
             Actor_Loss += self.actor.update(ob_no, ac_na, advantage)
 
         loss = OrderedDict()
-        loss['Critic_Loss'] = Critic_Loss  # put final critic loss here
-        loss['Actor_Loss'] = Actor_Loss  # put final actor loss here
+        loss['Critic_Loss'] = np.array(Critic_Loss)  # put final critic loss here
+        loss['Actor_Loss'] = np.array(Actor_Loss)  # put final actor loss here
+
         return loss
 
     def add_to_replay_buffer(self, paths):

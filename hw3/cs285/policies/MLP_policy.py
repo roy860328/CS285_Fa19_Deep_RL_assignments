@@ -107,8 +107,16 @@ class MLPPolicy(BasePolicy):
     # query the neural net that's our 'policy' function, as defined by an mlp above
     # query the policy with observation(s) to get selected action(s)
     def get_action(self, obs):
+        if len(obs.shape)>1:
+            observation = obs
+        else:
+            observation = obs[None]
 
-        # TODO: GETTHIS from HW1
+        # TODO return the action that the policy prescribes
+        # HINT1: you will need to call self.sess.run
+        # HINT2: the tensor we're interested in evaluating is self.sample_ac
+        # HINT3: in order to run self.sample_ac, it will need observation fed into the feed_dict
+        return self.sess.run([self.sample_ac], feed_dict={self.observations_pl: observation})[0]
 
 #####################################################
 #####################################################
@@ -158,7 +166,7 @@ class MLPPolicyPG(MLPPolicy):
             # to get [Q_t - b_t]
         # HINT4: don't forget that we need to MINIMIZE this self.loss
             # but the equation above is something that should be maximized
-        self.loss = -tf.reduce_sum(self.logprob_n*self.adv_n)
+        self.loss = tf.reduce_sum(-self.logprob_n*self.adv_n)
 
         # TODO: define what exactly the optimizer should minimize when updating the policy
         self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
