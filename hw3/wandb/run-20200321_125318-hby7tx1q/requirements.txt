@@ -81,7 +81,7 @@ tensorflow==1.12.0
 termcolor==1.1.0
 tqdm==4.42.1
 traitlets==4.3.3
-urllib3==1.25.8
+urllib3==1.26.5
 wandb==0.8.25
 watchdog==0.10.2
 wcwidth==0.1.8
